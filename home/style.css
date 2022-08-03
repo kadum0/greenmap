@@ -551,6 +551,9 @@
         min-width: 22vh;
         min-height: 22vh;
     }
+    #moreinfo{
+        font-size: 1rem;
+    }
     
     footer{
         flex-direction: column;
