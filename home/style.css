@@ -184,7 +184,7 @@
             align-items: center;
             /* background: red; */
             right: 1vw;
-            bottom: 10vh;
+            bottom: 1vh;
             z-index: 1003;
             /* height: 10rem; */
             /* width: 3rem; */
@@ -518,7 +518,7 @@
         font-size: 1rem;
     }
     #displayControllers{
-        bottom: 4vh;
+        bottom: 10vh;
     }
 
     .body{
