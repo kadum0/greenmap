@@ -161,39 +161,39 @@ app.get("/con-unfinished", async (req, res)=>{
 
 app.get("/uncon-finished",(req, res)=>{
     ///check if valid token 
-    if(req.cookies.modeAuth == process.env.MODEAUTH){
+    // if(req.cookies.modeAuth == process.env.MODEAUTH){
         mongodb.connect(process.env.MONGOKEY, async (err, client)=>{
             let dbb = client.db()
             let result = await dbb.collection("uncon-finished").find().toArray()
             res.send(result)
         })
-    }else{
-        res.sendStatus(401)
-    }
+    // }else{
+        // res.sendStatus(401)
+    // }
 })
 
 app.get("/uncon-unfinished",(req, res)=>{
-        if(req.cookies.modeAuth == process.env.MODEAUTH){
+        // if(req.cookies.modeAuth == process.env.MODEAUTH){
             mongodb.connect(process.env.MONGOKEY, async (err, client)=>{
                 let dbb = client.db()
                 let result = await dbb.collection("uncon-unfinished").find().toArray()
                 res.send(result)
             })
-        }else{
-            res.sendStatus(401)
-        }
+        // }else{
+            // res.sendStatus(401)
+        // }
 })
 
 app.get("/make-finished", (req, res)=>{
-    if(req.cookies.modeAuth == process.env.MODEAUTH){
+    // if(req.cookies.modeAuth == process.env.MODEAUTH){
         mongodb.connect(process.env.MONGOKEY, async (err, client)=>{
             let dbb = client.db()
             let result = await dbb.collection("finishing").find().toArray()
             res.send(result)
         })
-    }else{
-        res.sendStatus(401)
-    }
+    // }else{
+        // res.sendStatus(401)
+    // }
 })
 
 
@@ -319,7 +319,7 @@ app.post("/con-unfinished", (req, res, next)=>{beforeImgs= []; afterImgs = []; n
 
 
     ////if mode save it in con; else in uncon 
-    if(req.cookies.modeAuth == process.env.MODEAUTH){
+    // if(req.cookies.modeAuth == process.env.MODEAUTH){
         if(typeof beforeImgs[0] == "string"){
             console.log("valid data of the con unfinished...")
 
@@ -341,9 +341,9 @@ app.post("/con-unfinished", (req, res, next)=>{beforeImgs= []; afterImgs = []; n
         }else{
             res.sendStatus(400)
         }
-    }else{
-        res.sendStatus(401)
-    }
+    // }else{
+        // res.sendStatus(401)
+    // }
 })
 
 app.post("/con-finished", (req, res, next)=>{beforeImgs= []; afterImgs = []; next()},multerBasic.any(), async (req, res)=>{
@@ -373,7 +373,7 @@ app.post("/con-finished", (req, res, next)=>{beforeImgs= []; afterImgs = []; nex
     
 
     ////if mode save it in con; else in uncon 
-    if(req.cookies.modeAuth == process.env.MODEAUTH){
+    // if(req.cookies.modeAuth == process.env.MODEAUTH){
         if(typeof beforeImgs[0] == "string" &&typeof afterImgs[0] == "string" ){
             console.log("valid data")
 
@@ -393,9 +393,9 @@ app.post("/con-finished", (req, res, next)=>{beforeImgs= []; afterImgs = []; nex
         }else{
             res.sendStatus(400)
         }
-    }else{
-        res.sendStatus(401)
-    }
+    // }else{
+        // res.sendStatus(401)
+    // }
 })
 
 
@@ -407,7 +407,7 @@ app.post("/send-mode", async (req, res)=>{
     console.log("...........send mode.............")
     console.log(req.body)
     console.log(typeof req.body.toDelete)
-    if(req.cookies.modeAuth == process.env.MODEAUTH){
+    // if(req.cookies.modeAuth == process.env.MODEAUTH){
 
 
 
@@ -631,7 +631,7 @@ app.post("/send-mode", async (req, res)=>{
             dbb.collection("con-unfinished").findOneAndUpdate({_id: ObjectID(req.body.nextCamp)},{$set:{next: !preValue.next}})
         }
     })
-}
+// }
 
 
 })
