@@ -160,8 +160,8 @@
             font-size: 1.5rem;
             border-radius: 1rem;
             position: absolute;
-            bottom: 14vh;
-            left: .4vw;
+            bottom: 10vh;
+            left: 1vw;
             z-index: 1002;
         }
         .form *{
@@ -563,6 +563,9 @@
         font-size: .5rem;
     }
     .form{
+        bottom: 14vh;
+        left: .4vh;
+        max-width: 60%;
         font-size: .5rem;
     }
 }
