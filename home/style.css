@@ -512,6 +512,7 @@
     body{
         height: 100vh;
         width: 100vw;
+        font-size: .5rem;
     }
     #displaylines{
         text-align: center;
