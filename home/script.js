@@ -372,6 +372,7 @@ document.querySelectorAll(".addCoords").forEach(e=>{
 map.addEventListener('click', function (ev) {
     currentMm?map.removeLayer(currentMm):null
 
+
     console.log(ev.target)
 
 
@@ -386,23 +387,28 @@ map.addEventListener('click', function (ev) {
     }
 });
 
+let currentContr
 
 //////the searching and profile index
 document.addEventListener("click", (e)=>{
 
     //////display the controllers 
-    if(e.target.getAttribute('data-contr')){
-        console.log("clicking on contr element")
-        document.querySelectorAll(".contr").forEach(ee=>{
-            ee.style.display = 'none'
-        })
-        document.querySelector("#" + e.target.getAttribute("data-contr")).style.display = 'block'
-        // e.target.style.display = 'block'
-    }else{
-        document.querySelectorAll(".contr").forEach(ee=>{
-            ee.style.display = 'none'
-        })
-    }
+    // if(e.target.getAttribute('data-contr')){
+    //     console.log("clicking on contr element")
+    //     document.querySelectorAll(".contr").forEach(ee=>{
+    //         ee.style.display = 'none'
+    //     })
+    //     currentContr = document.querySelector("#" + e.target.getAttribute("data-contr"))
+    //     // e.target.style.display = 'block'
+    //     currentContr.style.display = 'block'
+    // }else if(currentMm){
+    //     currentContr.style.display = 'block'
+    // }
+    // else{
+    //     document.querySelectorAll(".contr").forEach(ee=>{
+    //         ee.style.display = 'none'
+    //     })
+    // }
 
 
     //////display the details
@@ -428,6 +434,18 @@ document.addEventListener("click", (e)=>{
         document.querySelector("#profile").style.pointerEvents = "all"
     }
 
+})
+
+
+document.querySelectorAll(".addbtn").forEach(i=>{
+    i.addEventListener("click", (e)=>{
+        e.target.classList.toggle("onbtn")
+        if(e.target.classList.contains("onbtn")){
+            document.querySelector("#" + e.target.getAttribute("data-contr")).style.display = 'block'
+        }else{
+            document.querySelector("#" + e.target.getAttribute("data-contr")).style.display = 'none'
+        }
+    })
 })
 
 
