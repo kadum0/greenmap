@@ -42,9 +42,9 @@
 }
 .mdetails{
     position: absolute;
-    bottom: 1rem;
+    top: 6rem;
     left: 2rem;
-    z-index: 1200;
+    z-index: 1002;
 }
 #mdetails span{
     background: #27f060;
