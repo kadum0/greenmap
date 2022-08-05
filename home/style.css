@@ -557,6 +557,10 @@
     footer img{
         max-width: 100%;
     }
+    .features img, .features div{
+        font-size: .8rem;
+        height: 2rem;
+    }
     body{
         height: 100vh;
         width: 100vw;
