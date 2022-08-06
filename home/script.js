@@ -182,7 +182,7 @@ document.querySelector("#displaylines").addEventListener("click", (e)=>{
         document.querySelector(".suggest").style.display = "block"
     }else{
         hideLines(pathObjects)
-        e.target.textContent = "اظهار مسارات النقل العام (كيات وكوسترات)"
+        e.target.textContent = " مسارات النقل"
         e.target.style.background = "#27f060"
 
         // e.target.parentElement.lastElementChild.remove()
