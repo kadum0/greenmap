@@ -1,0 +1,752 @@
+
+
+    /* basic */
+/* header */
+
+header{
+    height: 3rem;
+    background: #29D659;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    z-index: 1010;
+}
+.logo div {
+    height: 30%;
+    width: 75%;
+    margin-bottom: 10%;
+    transform: rotateZ(-15deg);
+}
+.logo {
+        height: 2rem;
+        width: 2rem;
+}
+
+#footer-di{
+    /* background: red; */
+    z-index: 1003;
+    border: #ff2a2a 2px solid;
+}
+.auth{
+height: 2rem;
+}
+.auth div{
+    pointer-events: none;
+}
+.authstate{
+    position: absolute;
+    padding: .6rem;
+    top: 3rem;
+    right: 1rem;
+    width: auto;
+
+    z-index: 1002;
+    display: none;
+
+
+background: rgba(255, 255, 255, 0.2);
+background: rgba(149, 255, 193, 0.2);
+
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.logged, .notlogged{
+    display: none;
+}
+header input{
+    display: block;
+}
+
+
+
+/* main */
+#map{
+    height: 92vh;
+    width: 100vw;
+}
+#map *{
+    font-size: 1rem;
+    direction: ltr;
+}
+#displaylines{
+    position: absolute;
+    z-index: 1002;
+    bottom: .2rem;
+    left: 50vw;
+    transform: translateX(-50%);
+}
+
+.suggest{
+    color: #0a0a0a;
+    display: none;
+    position: absolute;
+    bottom: .2rem;
+    left: 56vw;
+    z-index: 1002;
+}
+
+#tempBox{
+    position: absolute;
+    top: .1rem;
+    right: .1rem;
+    z-index: 1002;
+    background: #29D659;
+    border-radius: .2rem;
+    color: white;
+    padding: .3rem;
+}
+#tempBox p{
+    display: inline;
+    line-height: 1rem;
+}
+
+#profile{
+    position: absolute;
+    top: 0rem;
+    max-height: auto;
+    width: 84%;
+    background: rgb(123, 255, 163);
+    border-radius: .6rem;
+    display: none;
+}
+#beforeandafter{
+    gap: 1.5rem;
+    display: flex;
+}
+
+.shopImg{
+    height: 8rem;
+    width: 8rem;
+    background-size: cover;
+    display: inline;
+}
+.shopsImgSlider{
+    height: 6rem;
+    width: 10rem;
+    overflow: scroll;
+}
+
+
+#beforeImgs, #afterImgs{
+    gap: .3rem;
+    overflow-x: scroll;
+    display: flex;
+    width: 90%;
+}
+#beforeImgs img, #afterImgs img{
+    min-height: 20vh;
+    min-width: 33%;
+}
+#moreinfo{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-weight: bold;
+}
+
+
+
+#log{
+    display: none;
+    height: 6rem;
+    background: #29D659;
+}
+#loggedContent{
+    height: 100%;
+    display: flex;
+    gap: .3rem;
+    overflow: hidden;
+}
+.loggedCamp{
+    height: 100%;
+    position: relative;
+}
+.loggedCamp p{
+    position: absolute;
+    right: 0;
+    top: 1rem;
+}
+.loggedCamp img{
+    height: 100%;
+}
+
+
+
+
+
+
+/* controllers */
+
+#displayControllers{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    right: .2rem;
+    bottom: .2rem;
+    z-index: 1002;
+    padding: 1rem;
+    gap: .3rem;
+}
+#displayControllers div{
+    padding: .2rem;
+}
+#displayControllers button{
+    font-size: 1rem;
+}
+
+.addBtn img{
+    height: 2.4rem;
+    pointer-events: none;
+}
+
+
+
+.form{
+    background: rgb(105, 255, 105);
+    max-width: 80%;
+    font-size: 1.2rem;
+    border-radius: 1rem;
+    position: absolute;
+    bottom: 10vh;
+    left: 1vw;
+    z-index: 1002;
+
+}
+.form input[type=file]{
+    display: none;
+}
+.form *{
+    margin: .1rem;
+    font-size: 1.2rem;
+}
+
+.form div{
+    background: #a0f7b9;
+    border-radius: .6rem;
+    transition: 1s linear;
+}
+.subForm{
+    display: none;
+}
+.subForm button{
+    background-repeat: no-repeat;
+
+}
+        
+
+.namesInput{
+    position: relative;
+    /* background: red; */
+    padding: 1rem;
+}
+.namesInput input{
+    width: 16rem;
+}
+
+.suggestedAccounts{
+    top: -10rem;
+    height: 10rem;
+    width: 18rem;
+    background: rgb(186, 255, 186);
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display: none;
+}
+.suggestedAccounts img{
+    height: 2rem;
+    width: 2rem;
+}
+.suggestedAccount{
+    width: 100%;
+    text-align: center;
+    border: 1px rgb(19, 19, 19) solid;
+    box-sizing: border-box;
+    padding: 0 1rem 0 0 ;
+    background: #C0F9D0;
+    transition: .2s linear;
+    cursor: pointer;
+}
+.suggestedAccount:hover{
+    background: #54db7b;
+}
+.suggestedAccount .userName, .suggestedAccount .accountImg{
+    pointer-events: none;
+}
+
+
+
+
+
+
+
+/* footer */
+
+footer {
+    height: 100vh;
+    width: 100vw;
+    background: rgba(0, 0, 0, 0.8);
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    z-index: 1002;
+    display: none;
+}
+footer *{
+    box-sizing: border-box;
+}
+.footerflex{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+
+/* footer; ranking */
+.leaderBoard{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    padding: 1rem;
+    max-height: 65vh;
+    overflow-y: scroll;
+    background: #242424;
+    border: #27f060 1px solid;
+    max-height: 70vh;
+}
+.leaderBoard>span button{
+    background: #33a353;
+    padding: .2rem;
+    cursor: pointer;
+    border-radius: .2rem;
+}
+.rankingHeader{
+    display: flex;
+    flex-direction: row;
+    background: #0a0a0a;
+}
+.rankingHeader button{
+    width: 10rem;
+    /* flex-grow: 1; */
+}
+#accountHeader{
+    min-width: 5rem;
+}
+
+.usersRanking{
+    max-width: 100%;
+}
+.rankedAccount{
+    border: #0a0a0a 2px solid;
+    display: flex;
+    color: white;
+    background: #242424;
+    gap: 1rem;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+.ranking{
+    display: flex;
+    flex-direction: column;
+    background: #29D659;
+    border: #a0f7b9 2px solid;
+    font-size: 2rem;
+    text-align: center;
+}
+.rankedAccount span, .rankedAccount>h3, .rankedAccount .account{
+    width: 10vw;
+    /* flex-grow: 1; */
+}
+.rankedAccount .account{
+    justify-content: flex-start;
+    /* flex-grow: 2; */
+}
+.rankedAccount>h3{
+    text-align: center;
+}
+.rankedAccount img{
+    min-height: 2rem;
+    min-width: 2rem;
+}
+.leaderBoard button{
+    background-repeat: no-repeat;
+}
+.rankedAccount h3{
+    line-height: 0;
+}
+
+
+
+
+/* footer; info */
+
+.info{
+    min-height: 20vh;
+    background: #0a0a0a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    width: 100vw;
+}
+
+.contact, .features, .statics{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    min-height: 15vh;
+    width: 20vw;
+    border-radius: .5rem;
+    transition: .1s linear;
+    background: white;
+}
+
+.contact:hover, .features:hover, .statics:hover{
+    box-shadow: 3px 3px 0px 0px  #29D659;
+}
+.features{
+    width: 50vw;
+}
+.features div{
+    background: #1a1a1a;
+    color: white;
+    margin: .1rem;
+}
+.features li{
+    direction: ltr;
+}
+.statics img{
+    height: 1rem;
+}
+
+
+
+/* elements */
+        main div,main p,main h1,main h2,main h3,main h4,main h5,main h6{
+            direction: rtl;
+        }
+        
+        body{
+            overflow-x: hidden;
+            background: #1F2721;
+            margin: 0;
+            overflow: hidden;
+        }
+        body *{
+            /* box-sizing: border-box; */
+        }
+        img{
+            background-size: cover;
+            background-position: center;
+            height: 2rem;
+        }
+        input[type=file]{
+            display: none;
+        }
+        a{
+            text-decoration: none;
+            color: black;
+        }
+        button{
+            background-position: center;
+            background-size: contain;
+        }
+        li{
+            background: #C0F9D0;
+            border-radius: .4rem;
+            margin-bottom: .2rem;
+        }
+        label{
+            background: #54db7b;
+            cursor: pointer;
+            padding: .4rem;
+            transition: .2s linear;
+            border-radius: .2rem;
+        }
+        label:hover{
+            background: #33a353;
+        }
+        
+        
+
+
+
+/* shared */
+
+.box{
+    background-color: #27f060;
+    padding: .5rem;
+    border-radius: .5rem;
+    transition: .1s linear;
+    cursor: pointer;
+}
+.box:hover{
+    background-color: #33a353;
+    border-radius: .7rem;
+
+}
+
+        .logged, .makeprofile, .notlogged{
+            display: none;
+        }
+        .flex{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .account{
+            display: flex;
+            gap: .6rem;
+            justify-content: center;
+            align-items: center;
+            transition: .1s linear;
+            cursor: pointer;
+        }
+        
+        .accountImg{
+            border-radius: 50%;
+            border: #0a0a0a 1px solid;
+        }
+        
+        
+        
+        .on{
+            background: #1b1b1b;
+            color: white;
+        }
+        .on:hover{
+            background: #333333;
+        }
+        
+        .red {
+            background: #ff2a2a;
+        }
+        
+        .green {
+            background: #27f060;
+        }
+        
+        .black {
+            background: #0a0a0a;
+        }
+        
+        .white {
+            background: rgb(245, 245, 245);
+        }
+
+
+
+
+/* js created */
+
+.account{
+    display: flex;
+    gap: .6rem;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
+.accountImg{
+    height: 3rem;
+    width: 3rem;
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    border: #0a0a0a 1px solid;
+}
+
+
+
+.account:hover{
+    background: #33a353;
+    background: #a0f7b9;
+}
+
+
+
+
+        
+        .contr{
+            background: #54db7b;
+            border: #181818 1px solid;
+            border-radius: .2rem;
+            height: 2rem;
+            line-height: auto;
+            margin: .1rem;
+            color: black;
+        
+        }
+        .contr img{
+            height: 2rem;
+            width: 2rem;
+        }
+        .contrName{
+            background: #a0f7b9;
+            border-radius: .2rem;
+            text-align: center;
+            margin: .1rem;
+        }
+        .teamContr{
+            height: 3rem;
+            background-color: #27f060;
+        }
+        .teamContr img{
+            width: 3rem;
+            height: 3rem;
+        }
+        
+        .timer p, .timer div{
+            line-height: 0;
+        }
+        
+        
+
+
+
+/* to teamanize */
+
+.contr{
+    padding: 0;
+    background: #54db7b;
+    border: #181818 1px solid;
+    border-radius: .2rem;
+    height: 2rem;
+    /* height: fit-content; */
+    line-height: auto;
+    margin: .1rem;
+}
+.contr h3{
+    line-height: 0;
+}
+.contr img{
+    height: 2rem;
+    width: 2rem;
+}
+.contrName{
+    background: #a0f7b9;
+    margin: 0%;
+    border-radius: .2rem;
+    text-align: center;
+    margin: .1rem;
+
+}
+.contrTitle{
+    font-size: 1rem;
+}
+
+
+.miniprofile{
+    padding: 0;
+}
+
+#sendingDataMessage, #errorMessage{
+    position: absolute;
+    top: 5rem;
+    left: 50vw;
+    transform: translateX(-50%);
+    /* background: green;
+    padding: 1rem; */
+    z-index: 1029;
+}
+#errorMessage{
+    display: none;
+
+}
+
+.teamContr{
+    height: 3rem;
+    width: fit-content;
+    background-color: #27f060;
+}
+.teamContr img{
+    width: 3rem;
+    height: 3rem;
+}
+
+.cuserpoints{
+    display: flex;
+    justify-content: space-around;
+}
+.cuserpoints img{
+    width: 1.5rem;
+}
+
+
+.makeGreen{
+    /* display: flex; */
+}
+
+
+.coming{
+    
+}
+
+/* make more standared account section; based on the display section to be
+bigger or smaller */
+
+/* main, pins, ranking*/
+
+
+
+.timer p, .timer div{
+    line-height: 0;
+}
+
+
+/* new for admin */
+
+
+
+#maketeam{
+}
+
+#maketeamForm{
+    padding: 1rem;
+    display: none;
+}
+
+.confirmBtn{
+    /* padding: ; */
+    border-radius: .2rem;
+    background: #27f060;
+    transition: .1s linear;
+    cursor: pointer;
+}
+.confirmBtn:hover{
+    background: #33a353;
+}
+
+.deleteBtn{
+    border-radius: .2rem;
+    background: #ff2a2a;
+    transition: .1s linear;
+    cursor: pointer;
+}
+.deleteBtn:hover{
+    background: #b62323;
+}
+
+#makeShop{
+    padding: 1rem;
+    display: none;
+}
+
+
+
+
+
