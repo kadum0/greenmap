@@ -264,6 +264,14 @@ document.querySelector(".auth").addEventListener("click", (e)=>{
 
 
 ///////controllers 
+document.querySelector('#controllersDi').addEventListener('click', (ev)=>{
+    ev.target.classList.toggle("on")
+    if(ev.target.classList.contains('on')){
+        document.querySelector('#displayControllers').style.display='flex'
+    }else{
+        document.querySelector('#displayControllers').style.display='none'
+    }
+})
 document.querySelectorAll(".addBtn").forEach(i=>{
     i.addEventListener("click", (e)=>{
         // console.log(e.target)

@@ -25,9 +25,8 @@ header{
   }
 
 #footer-di{
-  /* background: red; */
-  z-index: 1003;
-  border: #ff2a2a 2px solid;
+    z-index: 1003;
+    color: white;
 }
 .auth{
 height: 2rem;
@@ -217,9 +216,30 @@ main{
 
 
 /* form-di */
+
+#controllersDi{
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  z-index: 1010;
+  padding: .6rem;
+  border-radius: 5rem;
+  font-size: 1rem;
+  height: 2rem;
+  width: 2rem;
+  line-height: 0;
+  cursor: pointer;
+  background: #54db7b;
+  /* background: #a0f7b9; */
+  transition: .1s linear;
+  border: #29D659 2px solid ;
+}
+#controllersDi:hover{
+  background: #27f060;
+}
 #displayControllers{
   position: absolute;
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
