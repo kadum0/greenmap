@@ -24,7 +24,7 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./newsw.js');
+        // navigator.serviceWorker.register('./newsw.js');
       });
     }
   </script>
@@ -315,6 +315,13 @@
       </div>
     </div>
 
+    <div class="nextPinsCounterDiv">
+      <span class="nextPinsCounter">
+        0
+      </span>
+      <img src="./imgs/yellowPin.png">
+    </div>
+
   </main>
 
 
@@ -453,7 +460,7 @@
           <li>تم زراعتها <img src="./imgs/greenPin.png" alt=""><b id="greenCounter" style="color: red;">0</b>
           </li>
           <li>تحتاج الى زراعة <img src="./imgs/redPin.png"> <b id="redCounter" style="color:red;">0</b></li>
-          <li>الحملات الحالية: <img src="./imgs/yellowPin.png"> <b id="yellowCounter" style="color:red;">0</b>
+          <li>الحملات الحالية: <img src="./imgs/yellowPin.png"> <b class="nextPinsCounter" style="color:red;"> 0 </b>
           </li>
           <li>النباتات المزروعة: <img src="./imgs/plant.png"> <b id="plantedCounter" style="color:red;">0</b>
           </li>

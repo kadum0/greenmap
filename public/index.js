@@ -1113,6 +1113,7 @@ await onAuthStateChanged(bygreenAuth, async (user)=>{
                     docs.push({...doc.data(), id: doc.id})
                 })
                 redPins = docs
+                console.log(redPins)
 
                 // localstorage 
                 navigator.onLine?localStorage.setItem('redpins', JSON.stringify(redPins)):redPins= JSON.parse(localStorage.getItem("redpins") || "[]")
@@ -1123,7 +1124,12 @@ await onAuthStateChanged(bygreenAuth, async (user)=>{
                 // console.log(docs)
                 insertPins(redPins, 'red')
                 // console.log(document.querySelector('#yellowCounter').textContent)
-                redPins.forEach(redPin =>redPin.next?document.querySelector('#yellowCounter').textContent++:document.querySelector('#redCounter').textContent ++)
+                // redPins.forEach(redPin=>{
+                //     if(redPin.next){
+                        
+                //     }
+                // })
+                redPins.forEach(redPin =>redPin.next?document.querySelectorAll('.nextPinsCounter').forEach(nextCounter=>nextCounter.textContent++):document.querySelector('#redCounter').textContent ++)
 
                     // check the url; if have next
     // console.log(window.location.href.split('/'))
