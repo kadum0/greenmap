@@ -152,6 +152,7 @@ main{
   justify-content: space-around;
   align-items: center;
   font-weight: bold;
+  /* padding: .5rem; */
   /* font-size: 1.4rem; */
   /* background: rgb(105, 255, 105); */
   /* background: red; */
@@ -797,6 +798,12 @@ label:hover{
   }
   .box{
     padding: .2rem;
+  }
+  #footer-di{
+    font-size: 1rem;
+    padding: .5rem;
+    margin: .2rem;
+    /* background: red; */
   }
 }
 
