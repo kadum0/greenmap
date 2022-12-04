@@ -646,7 +646,7 @@ function insertPins (dataList, type){
 
                 // console.log(red.next.by,names)
                 names = `
-                <a href=' http://${window.location.host+'/'+ red.next.by}/next '> <b style='color: blue;'> link </b> </a>
+                <a href=' http://${window.location.host+'/'+ red.next.by}/next '> <b style='color: blue;'> http://${window.location.host+'/'+ red.next.by}/next </b> </a>
                 <a href='http://${window.location.host+'/profile/'+ red.next.by}'>
                 <span class="account contr teamContr">
                     <h4 class="userName"> ${names[0].userName}</h4>
