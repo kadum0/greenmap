@@ -19,17 +19,15 @@
   <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
   <link rel="stylesheet" href="index.css">
-  <!-- <link rel="icon" href="./assets/icon-192.png"> -->
-  <!-- <link rel="icon" href="/imgs/favicon.ico?" type="image/x-icon"> -->
 
-  <link rel="shortcut icon" type="image/jpg" href="imgs/bygreen-favicon2.ico" />
+  <link rel="shortcut icon" type="image/jpg" href="imgs/bygreen-logo.png" />
 
 
   <link rel="manifest" href="./manifest.json">
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        // navigator.serviceWorker.register('./newsw.js');
+        navigator.serviceWorker.register('./newsw.js');
       });
     }
   </script>
@@ -40,18 +38,31 @@
 
   <header>
     <!-- logo -->
-    <div class="flex">
-      <div class="logo box">
+    <!-- logo -->
+    <div class="logos">
+      <div class="flex">
         <a href="https://kadum2.github.io/ivc/">
-          <div class="black"></div>
-          <div class="red"></div>
-          <div class="white"></div>
-          <!-- <div class="green"></div> -->
+          <div class="logo box">
+            <!-- <a href="https://kadum2.github.io/ivc-2de/"> -->
+            <div class="black"></div>
+            <div class="red"></div>
+            <div class="white"></div>
+            <!-- <div class="green"></div> -->
+          </div>
         </a>
-
       </div>
-      <span id="footer-di" class="box">?</span>
-      <button disabled id="displayShops" class="box">مشاتل</button>
+
+
+      <a href="https://kadum2.github.io/bygreen/home/" class="projectLogo">
+        <img src="./imgs/bygreen-logo.png" alt="">
+      </a>
+      <button id="aside-di" class="box">
+        ?
+      </button>
+      <button id="displayShops" class="box">
+        المشاتل
+      </button>
+
     </div>
 
     <!-- title -->
@@ -86,15 +97,15 @@
         <p class="cuserbio">bio</p>
         <div class="cuserpoints" style="display: inline;">
           <span class="redPin">
-            <img src="./imgs/redPin.png" alt="">
+            <img src="./imgs/red-icon-stroked.png" alt="">
             <span></span>
           </span>
           <span class="greenPin">
-            <img src="./imgs/greenPin.png" alt="">
+            <img src="./imgs/green-icon-stroked.png" alt="">
             <span></span>
           </span>
           <span class="yellowPin">
-            <img src="./imgs/yellowPin.png" alt="">
+            <img src="./imgs/yellow-icon-stroked.png" alt="">
             <span></span>
           </span>
         </div>
@@ -113,7 +124,7 @@
           <button id="signinbtn" class="box">signin</button>
         </div>
         <h3>or</h3>
-        <button id="bygoogle" class="box">register with google <img src="./imgs/googlelogo.png" alt="">
+        <button id="bygoogle" class="box">register with google <img src="./imgs/general/google-logo.png" alt="">
         </button>
       </div>
       <div class="makeprofile">
@@ -130,9 +141,6 @@
     </div>
 
   </header>
-
-
-  <!-- main -->
 
   <main>
     <!-- profile -->
@@ -175,7 +183,7 @@
 
 
       <button id="controllersDi">
-        <img src="./imgs/leaflogo.png" alt="" style="  pointer-events: none;"> +
+        <img src="./imgs/leaf-logo-stroked.png" alt="" style="  pointer-events: none;"> +
       </button>
       <!-- controllers -->
       <div id="displayControllers">
@@ -185,26 +193,26 @@
         <button class="addBtn teamEle box" data-contr="addYellowForm">
 
 
-          <img src="./imgs/yellowPin.png" alt="">
-          <img src="./imgs/arrowright.png" alt="">
-          <img src="./imgs/redPin.png" alt="">
+          <img src="./imgs/yellow-icon-stroked.png" alt="">
+          <img src="./imgs/arrow-right.png" alt="">
+          <img src="./imgs/red-icon-stroked.png" alt="">
         </button>
 
         <button class="addBtn addRed box" data-contr="addRedForm">
 
-          <img src="./imgs/redPin.png" alt="">
+          <img src="./imgs/red-icon-stroked.png" alt="">
           +
         </button>
         <button class="addBtn makeGreen box" data-contr="toGreenForm">
-          <img src="./imgs/greenPin.png">
-          <img src="./imgs/arrowright.png">
+          <img src="./imgs/green-icon-stroked.png">
+          <img src="./imgs/arrow-right.png">
 
-          <img src="./imgs/redPin.png">
+          <img src="./imgs/red-icon-stroked.png">
         </button>
 
         <button class="addBtn makeGreen box" data-contr="addGreenForm">
 
-          <img src="./imgs/greenPin.png" alt="">
+          <img src="./imgs/green-icon-stroked.png" alt="">
           +
         </button>
 
@@ -249,7 +257,7 @@
         <h4>شروط المكان الذي يحتاج تشجير: ... </h4>
 
         <button class="addCoords box" id="addRedCoords"
-          style="background-image: url('./imgs/redPin.png');background-repeat: no-repeat">تحديد
+          style="background-image: url('./imgs/red-icon-stroked.png');background-repeat: no-repeat">تحديد
           مكان</button>
         <label for="addBImgs"> x3 اضافة صور للمكان</label>
         <input type="file" id="addBImgs" name="addBImgs" class="addBImgs" multiple>
@@ -263,7 +271,7 @@
 
       <div class="subForm" id="addGreenForm">
         <h4>اضافة مكان تم زراعته </h4>
-        <button class="addCoords box" id="addGreenCoords" style="background-image: url('./imgs/greenPin.png');
+        <button class="addCoords box" id="addGreenCoords" style="background-image: url('./imgs/green-icon-stroked.png');
                 background-repeat: no-repeat">تحديد مكان</button>
         <label for="addBBImgs">قبل</label>
         <input type="file" id="addBBImgs" name="addBBImgs" class="addBImgs" multiple>
@@ -330,21 +338,19 @@
       <span class="nextPinsCounter">
         0
       </span>
-      <img src="./imgs/yellowPin.png">
+      <img src="./imgs/yellow-icon-stroked.png">
     </div>
+
+    <div id="message">
+      <div id="sendingDataMessage" class="box">loading data</div>
+      <div id="errorMessage" class="box">some thing is wrong</div>
+    </div>
+
 
   </main>
 
-
-  <div id="message">
-    <div id="sendingDataMessage" class="box">loading data</div>
-    <div id="errorMessage" class="box">some thing is wrong</div>
-  </div>
-
-
-  <!-- <button id="en" class="box">en</button>  -->
-  <!-- footer -->
-  <footer>
+  <!-- change footer name into side then info into footer -->
+  <aside>
     <div class="footerflex">
       <div class="leaderBoard">
         <span style="margin-bottom: 1rem;">
@@ -360,11 +366,12 @@
           <!-- <span>none</span> -->
           <button id="rankingSorting" class="box">ranking</button>
           <button id="accountHeader">account</button>
-          <button class="box" id="redPinSorting" style="background-image: url('./imgs/redPin.png');"></button>
-          <button class="box" id="greenPinSorting" style="background-image: url('./imgs/greenPin.png');"></button>
+          <button class="box" id="redPinSorting" style="background-image: url('./imgs/red-icon-stroked.png');"></button>
+          <button class="box" id="greenPinSorting"
+            style="background-image: url('./imgs/green-icon-stroked.png');"></button>
           <button class="box" id="redToGreenSorting">
-            <img src="./imgs/arrowright.png" style="pointer-events: none;">
-            <img src="./imgs/greenPin.png" style="pointer-events: none;">
+            <img src="./imgs/arrow-right.png" style="pointer-events: none;">
+            <img src="./imgs/green-icon-stroked.png" style="pointer-events: none;">
           </button>
           <button class="box" id="totalSorting">total points</button>
         </div>
@@ -432,16 +439,16 @@
         </div>
       </div>
 
-      <div class="info">
+      <footer class="info">
         <div class="contact">
           <span class="red"></span>
           <h2>تواصل معنا</h2>
           <span>
             <a href="https://www.instagram.com/kadum_0/" target="_blank">
-              <img src="./imgs/instagramlogo.png" alt="">
+              <img src="./imgs/general/instagram-logo.png" alt="">
             </a>
             <a href="t.me/kadum0" target="_blank">
-              <img src="./imgs/Telegramlogo.png" alt="">
+              <img src="./imgs/general/telegram-logo.png" alt="">
             </a>
           </span>
           <!-- <p>facebook</p> -->
@@ -458,6 +465,8 @@
         </div>
         <div class="features">
           <span class="black"></span>
+
+          <!-- short description -->
           <h2>: الغرض و الاستخدام </h2>
 
           <div class="box">
@@ -465,52 +474,61 @@
             القادمة, بهدف جمع مساهمات التشجير (الفرق
             التطوعية) و المتطوعين في منصة واحدة مخصصة لهذا النشاط, مع تسهيلات لحل بعض المشاكل التي قد تواجه الطرفين
           </div>
+
+          <!-- features -->
           <h2>
             ممزيات:
           </h2>
           <div class="box">
             التبليغ عن اماكن تحتاج تشجير
-            <img src="./imgs/addred.png" alt="">
+            <img src="./imgs/f0-add-pin-btn.png" alt="">
+            <img src="./imgs/f2-add-red-pin-btn.png" alt="">
+            <img src="./imgs/f2-1-add-red-pin-details.png" alt="">
           </div>
+          <div class="box">
+            زراعة مباشرة و توثيق بالصور
+            <img src="./imgs/f0-add-pin-btn.png" alt="">
+            <img src="./imgs/f1-add-green-pin-btn.png" alt="">
+            <img src="./imgs/f1-1-add-green-details.png" alt="">
+          </div>
+          <div class="box">
+            <img src="./imgs/f3-red-to-green-btn.png">
+            زراعة مكان محدد: توثيق بالصور
+          </div>
+
           <div class="box">
             تسهيل التنقل
-            <img src="./imgs/publiclineprojectimg.png" alt="">
+            <img src="./imgs/f4-display-publicline-route-btn.png" alt="">
           </div>
 
-          <div class="box">
-            زراعة مباشرة و توثيق: للمساهمة الفردية بدون انتظار حملة من فريق
-            <img src="./imgs/addgreen.png" alt="">
-          </div>
-
-          <div class="box">
-            <img src="./imgs/redtogreen.png">
-            زراعة مكان محدد
-          </div>
 
         </div>
+
         <div class="statics">
           <span class="green"></span>
           <h2>نتائج المشروع</h2>
-          <li>تم زراعتها <img src="./imgs/greenPin.png" alt=""><b id="greenCounter" style="color: red;">0</b>
+          <li>تم زراعتها <img src="./imgs/green-icon-stroked.png" alt=""><b id="greenCounter" style="color: red;">0</b>
           </li>
-          <li>تحتاج الى زراعة <img src="./imgs/redPin.png"> <b id="redCounter" style="color:red;">0</b></li>
-          <li>الحملات الحالية: <img src="./imgs/yellowPin.png"> <b class="nextPinsCounter" style="color:red;"> 0 </b>
+          <li>تحتاج الى زراعة <img src="./imgs/red-icon-stroked.png"> <b id="redCounter" style="color:red;">0</b></li>
+          <li>الحملات الحالية: <img src="./imgs/yellow-icon-stroked.png"> <b class="nextPinsCounter" style="color:red;">
+              0 </b>
           </li>
-          <li>النباتات المزروعة: <img src="./imgs/plant.png"> <b id="plantedCounter" style="color:red;">0</b>
+          <li>النباتات المزروعة: <img src="./imgs/plant-icon.png"> <b id="plantedCounter" style="color:red;">0</b>
           </li>
 
 
-          <li>عدد المستخدمين: <b id="accountsCounter" style="color: red;">0</b></li>
+          <li>عدد المستخدمين: <img src="./imgs/general/account-icon.png" alt=""> <b id="accountsCounter"
+              style="color: red;">0</b></li>
           <li>عدد المساهمات: <b id="contriCounter" style="color: red;">0</b></li>
           <!-- <img src="./imgs/284807325_340145658273227_1050030653915922194_n.jpg" alt=""> -->
 
         </div>
 
-      </div>
+      </footer>
     </div>
     </div>
 
-  </footer>
+  </aside>
 
 
   <script src="./index.js" type="module"></script>

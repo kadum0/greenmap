@@ -1,5 +1,6 @@
 
 
+/////////////////initializing; 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-app.js";
 // import { initializeApp } from "./firebase-app.js";
 
@@ -11,12 +12,6 @@ import { getFirestore, onSnapshot,
 	query, where, orderBy, serverTimestamp,
 	updateDoc, arrayUnion, arrayRemove, DocumentReference, enableIndexedDbPersistence } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-firestore.js";
 
-    // import { getFirestore, onSnapshot,
-    //     collection, doc, getDocs, getDoc,
-    //     addDoc, deleteDoc, setDoc,
-    //     query, where, orderBy, serverTimestamp,
-    //     updateDoc, arrayUnion, arrayRemove, DocumentReference} from "./firestore.js";
-
 import {getStorage, ref, uploadBytes, getDownloadURL, listAll, list, deleteObject } from 'https://www.gstatic.com/firebasejs/9.9.2/firebase-storage.js'
 
 if(navigator.onLine){
@@ -25,8 +20,6 @@ if(navigator.onLine){
     console.log(JSON.parse(localStorage.getItem("users") || "[]"))   
 }
 
-// Initialize 
-
 const bygreenConfig = {
     apiKey: "AIzaSyDqK1z4fd7lO9g2ISbf-NNROMd7xpxcahc",
     authDomain: "bygreen-453c9.firebaseapp.com",
@@ -34,7 +27,8 @@ const bygreenConfig = {
     storageBucket: "bygreen-453c9.appspot.com",
     messagingSenderId: "19954598250",
     appId: "1:19954598250:web:ba57c792bdf65dbc18a513",
-    measurementId: "G-265TN8HGKX"};
+    measurementId: "G-265TN8HGKX"
+};
 
 const bygreen = initializeApp(bygreenConfig, 'bygreen');
 const bygreenDb = getFirestore(bygreen)
@@ -49,19 +43,6 @@ let authUser ///auth
 let type 
 let accountsList = []
 let redPins
-
-// enableIndexedDbPersistence(bygreenDb)
-//   .catch((err) => {
-//       if (err.code == 'failed-precondition') {
-//           // Multiple tabs open, persistence can only be enabled
-//           // in one tab at a a time.
-//           // ...
-//       } else if (err.code == 'unimplemented') {
-//           // The current browser does not support all of the
-//           // features required to enable persistence
-//           // ...
-//       }
-//   });
 
 ///////register 
 document.querySelector('#registerbtn').addEventListener('click', (ev)=>{
@@ -123,7 +104,7 @@ signoutsebtn.addEventListener('click', ()=>{
 // sign with google  
 const provider = new GoogleAuthProvider()
 bygoogle.addEventListener('click', ()=>{
-    // signInWithPopup(bygreenAuth, provider).then((cred)=>console.log('signed with google', cred))
+    signInWithPopup(bygreenAuth, provider).then((cred)=>console.log('signed with google', cred))
 })
 
 //////make profile; 
@@ -205,35 +186,44 @@ let control = L.Control.geocoder().addTo(map);
         /// /getting icon; icon is special object not just an image; to remove
       //the function instead
         let greenPin = L.icon({
-            iconUrl: "./imgs/greenPin.png",
+            iconUrl: "./imgs/green-icon-stroked.png",
             shadowSize: [50, 64], // size of the shadow
             shadowAnchor: [4, 62], // the same for the shadow
-            iconSize: [25, 41],
+            iconSize: [30, 30],
             iconAnchor: [12, 41],
             popupAnchor: [0, -30] 
         });
         let redPin = L.icon({
-            iconUrl: "./imgs/redPin.png",
+            iconUrl: "./imgs/red-icon-stroked.png",
             shadowSize: [50, 64], // size of the shadow
             shadowAnchor: [4, 62], // the same for the shadow
-            iconSize: [25, 41],
+            iconSize: [30, 30],
             iconAnchor: [12, 41],
             popupAnchor: [0, -30] 
         });
+        let shopIcon= L.icon({
+            iconUrl: "./imgs/shop-icon.png",
+            shadowSize: [50, 64], // size of the shadow
+            shadowAnchor: [4, 62], // the same for the shadow
+            iconSize: [30, 30],
+            iconAnchor: [12, 41],
+            popupAnchor: [0, -30] 
+        });
+
 
         function makePin(typeOfPin){
             return L.icon({
                 iconUrl: `./imgs/${typeOfPin}.png`,
                 shadowSize: [50, 64], // size of the shadow
                 shadowAnchor: [4, 62], // the same for the shadow
-                iconSize: [25, 41],
+                iconSize: [30, 30],
                 iconAnchor: [12, 41],
                 popupAnchor: [0, -30] 
             })
         }
 
 
-//////////ui-js
+    //////////ui-js
         /////get into the user location 
         let currentUserLocation
         function getLocation() {
@@ -283,15 +273,10 @@ document.querySelectorAll(".addBtn").forEach(i=>{
 })
 
 
-//footer display 
-document.querySelector('#footer-di').addEventListener('click', (ev)=>{
+// footer display 
+document.querySelector('#aside-di').addEventListener('click', (ev)=>{
             ev.target.classList.toggle('on')
-            // console.log(ev.target)
-            if(ev.target.classList.contains('on')){
-                document.querySelector("footer").style.display = 'block'
-            }else{
-            document.querySelector("footer").style.display = 'none'
-        }
+            ev.target.classList.contains('on')?document.querySelector("aside").style.display = 'block':document.querySelector("aside").style.display = 'none'
 })
 
 // window.addEventListener('click', (ev)=>console.log(ev.target))
@@ -603,7 +588,7 @@ function insertShops(dataList){
         // console.log(shop)
         // on toggle imgs; make imgs then insert it on toggle
         let imgs = shop.imgs.map(img=>`<img class='shopImg' style='background-image:url("${img}")'>`).join('').toString()
-        let shopObject = L.marker(shop.coords).bindPopup(`<p>${shop.info}</p>`).addTo(map)
+        let shopObject = L.marker(shop.coords, {icon: shopIcon}).bindPopup(`<p>${shop.info}</p>`).addTo(map)
 
         shopObject.addEventListener('click', (ev)=>{
             document.querySelector('#beforeandafter').innerHTML = `<div> ${imgs} </div> `
@@ -629,392 +614,6 @@ function hideShops(){
 let prevMarker 
 // function insertPins (dataList, type){
 
-//     if(type == 'red'){
-        
-//         // loop over them; 
-//         dataList.forEach(red=>{
-//             // do shared stuff; 
-//             // coords, imgs, names; make pin and link data with to be inserted onclick
-//             let names
-//             // edit; get one name; no need for loop and list 
-
-//             if(red.next){
-//                 names = accountsList.filter(account =>account.userName == red.next.by)
-
-//                 // console.log(red.next.by,names)
-//                 names = `
-//                 <a href=' http://${window.location.host+'/'+ red.next.by}/next '> <b style='color: blue;'> http://${window.location.host+'/'+ red.next.by}/next </b> </a>
-//                 <a href='http://${window.location.host+'/profile/'+ red.next.by}'>
-//                 <span class="account contr teamContr">
-//                     <h4 class="userName"> ${names[0].userName}</h4>
-//                     <img class="accountImg" style="background-image: url('${names[0].img}');"></img>
-//                 </span>
-//                 </a>
-//                 `
-
-//             }else{
-//                 let filtered = accountsList.filter(account=>'@'+account.userName == red.names)
-            
-//                 if(filtered[0]){
-//                     // console.log(filtered[0])
-//                     names =  `
-//                     <a href='http://${window.location.host+'/profile/'+ filtered[0].userName}'>
-//                 <span class="account contr">
-//                     <h4 class="userName">@${filtered[0].userName}</h4>
-//                     ${filtered[0]?`<img class="accountImg" style="background-image: url('${filtered[0].img}');"></img>`:null}
-                    
-//                 </span>
-//                 </a>
-//                 `
-                    
-//                 }else{
-//                     names = `<h4 class="contrName">${red.names[0]}</h4>`
-//                 }
-//             }
-
-//     let pin = L.marker(red.coords, {
-//         icon:redPin,
-//         popupAnchor: [-10, -30]
-//     }).bindPopup(`<div>${names}</div>`).addTo(map)
-//     pin.id = red.id
-
-
-//     // make the dom elements;
-
-//     // new method
-//     let beforeImgsElements = []
-//     red.beforeImgs.forEach(img=>{
-//         let imgEle = document.createElement('img')
-//         imgEle.style.backgroundImage = `url('${img}')`
-//         beforeImgsElements.push(imgEle)
-//     })
-
-
-//     // old method
-//     // let beforeImgsElements = red.beforeImgs.map(img=>{
-//     //     return `<img style='background-image:url("${img}")'>`
-//     // })
-//     // pin.beforeImgs = beforeImgsElements.join('').toString()
-
-//     pin.addEventListener('click', (ev)=>{
-
-
-
-//         // new method
-//         document.querySelector('#beforeandafter').innerHTML = ``
-//         let beforeImgsDiv = document.createElement('div')
-//         beforeImgsDiv.setAttribute('id', 'beforeImgs')
-        
-
-//         let afterImgsDiv = document.createElement('div')
-//         afterImgsDiv.setAttribute('id', 'afterImgs')
-//         beforeImgsElements.forEach(imgDiv=>{
-//             beforeImgsDiv.append(imgDiv)
-//         })
-//         document.querySelector('#beforeandafter').append(beforeImgsDiv, afterImgsDiv)
-        
-//         // old method
-//         // document.querySelector('#beforeandafter').innerHTML = `
-//         //     <div id="afterImgs">
-//         //     </div>
-//         //     <div id="beforeImgs">
-//         //         ${ev.target.beforeImgs}
-//         //     </div>
-//         // `
-//         // document.querySelector('#beforeImgs').innerHTML = ev.target.beforeImgs
-//         // document.querySelector('#afterImgs').innerHTML = ''
-
-//         document.querySelector('#details').textContent = ''
-//         document.querySelector('#date').textContent = ''
-
-//         // console.log(ev.target)
-
-//         //method; circle; 
-//         prevMarker?map.removeLayer(prevMarker):null
-//         prevMarker = L.circle(ev.target._latlng, {radius: 800 ,color: (red.next?'yellow':'red')}).addTo(map)
-//         currentId = ev.target.id
-
-//         //method; set property object to pin object; selected, normal
-
-
-//         if(currentId){
-//             document.querySelector('#sendRedToGreen').removeAttribute('disabled')
-//             document.querySelector('#sendYellow').removeAttribute('disabled')
-            
-//         }else{
-//             document.querySelector('#sendRedToGreen').setAttribute('disabled', true)
-//             document.querySelector('#sendYellow').setAttribute('disabled', true)
-//         }
-//     })
-
-
-//             // check if next 
-//             if(red.next){
-
-//                 // change icon 
-//                 pin.setIcon(L.icon({
-//                     iconUrl: `./imgs/${red.next.by}yellowpin.png`,
-//                     shadowSize: [50, 64], // size of the shadow
-//                     shadowAnchor: [4, 62], // the same for the shadow
-//                     iconSize: [25, 41],
-//                     iconAnchor: [12, 41],
-//                     popupAnchor: [0, -30] 
-//                 }))
-
-//                 pin.addEventListener('click', ()=>{
-//                 // change icon 
-
-//                 })
-
-
-//                 // settting time objects; 
-//                 // let intendedDate = {}
-//                 let intendedDate = {
-//                     year: red.next.date.year,
-//                     month: red.next.date.month,
-//                     day: red.next.date.day,
-//                     hour: red.next.date.hour, 
-//                     minute: red.next.date.minute,
-//                     part: red.next.date.part
-//                 }
-
-//                 var today = new Date();
-//                 var dd = + String(today.getDate()).padStart(2, '0');
-//                 var mm = + String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-//                 var yyyy = today.getFullYear();
-
-//                 let currentDate ={
-//                     year: yyyy,
-//                     month: mm,
-//                     day: dd,
-//                     hour: today.getHours(),
-//                     minute: today.getMinutes()
-//                 }
-
-//                 intendedDate.part == 'pm'?intendedDate.hour = + intendedDate.hour + 12:null
-
-
-//                 let remainedDay
-//                 if(intendedDate.day >  currentDate.day ){
-//                     remainedDay = intendedDate.day - currentDate.day
-//                 }else{
-//                     remainedDay = ( + intendedDate.day + 30) - currentDate.day
-//                     intendedDate.month = intendedDate.month - 1
-                    
-//                 }
-
-//                 let reaminedHour 
-//                 if(intendedDate.hour > currentDate.hour){
-//                     reaminedHour = intendedDate.hour - currentDate.hour
-//                 }else{
-//                     reaminedHour = ( + intendedDate.hour + 24) - currentDate.hour
-//                     // intendedDate.day = intendedDate.day - 1
-//                     remainedDay = remainedDay -1
-//                 }
-
-//                 let remainedMinute
-//                 if(intendedDate.minute > currentDate.minute ){
-//                     remainedMinute = intendedDate.minute - currentDate.minute
-//                 }else{
-//                     remainedMinute = (+ intendedDate.minute + 60) - currentDate.minute
-//                     // intendedDate.hour = intendedDate.hour - 1
-//                     reaminedHour = reaminedHour -1
-//                 }
-
-
-
-
-
-//                 let remainedDate = {
-//                     year: intendedDate.year - currentDate.year,
-//                     month: intendedDate.month - currentDate.month,
-//                     day: reaminedHour == 24?remainedDay+1:remainedDay,
-//                     hour: reaminedHour == 24?0:reaminedHour,
-//                     minute:remainedMinute
-//                 }
-//                 // how to find the remained minutes to the intended time ???
-//                 // console.log(intendedDate, currentDate, remainedDate)
-//                 // find the team account and make the object; remove the normal user ???
-//                 // inser the info 
-//                 let coming = document.createElement('span')
-//                 coming.classList.add('comingCounter')
-//                 coming.textContent = red.next.going.length
-//                 // coming.innerHTML = `<span class='comingCounter'>0</span>`
-//                 // let coming = `<span class='comingCounter'>0</span>`
-//                 let comingBtn = document.createElement('button')
-//                 dbUser?comingBtn.setAttribute('disabled', true):removeAttribute('disabled')
-//                 comingBtn.classList.add('coming', 'box', 'bycreate')
-//                 comingBtn.textContent = 'coming'
-//                 if(red.next.going.includes(dbUser.userName)){
-//                     comingBtn.classList.toggle('on')
-//                 }
-//                 // comingBtn.setAttribute('disabled', true)
-
-//                 let div = document.createElement('div')
-//                 let newNames = document.createElement('div')
-//                 newNames.innerHTML = names
-
-//                 let intendedId = red.id
-
-//                 comingBtn.addEventListener('click', (ev)=>{
-//                     ev.target.classList.toggle('on')
-//                     if(ev.target.classList.contains('on')){
-//                         ev.target.parentElement.querySelector('.comingCounter').textContent ++
-//                         // updateDoc(doc(bygreenDb, 'tempRed', red.id),{"next.going":arrayUnion(dbUser.userName)}).then(()=>console.log('sent'))
-//                     }else{
-//                         ev.target.parentElement.querySelector('.comingCounter').textContent --
-//                         // updateDoc(doc(bygreenDb, 'tempRed', red.id),{"next.going":arrayRemove(dbUser.userName)}).then(()=>console.log('sent'))
-
-//                     }
-//                 })
-
-//                 let campDetials = document.createElement('div')
-//                 let detials = `
-//                 <div class='timer'>
-//                 <p>${red.next.info}</p>
-//                 <b>
-//         <p>${red.next.date.month}m-${red.next.date.day}d-${red.next.date.hour}h:${red.next.date.minute}min, ${red.next.date.part} </p>
-//         <div style='color:red;'>الوقت المتبقي:</div>
-//         <p style='color:red'> ${remainedDate.month}m.${remainedDate.day}d.${remainedDate.hour}h.${remainedDate.minute}min </b> </p>
-//                 </div>
-//                 `
-
-//                 campDetials.innerHTML = detials
-//                 div.append(newNames,comingBtn, coming,campDetials)
-//                 pin.bindPopup(div)
-//             }else{
-//                 // normal pin
-//             }
-//         })
-//     }else if(type=='green'){
-//         //loop over list; 
-//         // make pin content; names, before and after imgs,
-//         // make pin function; onlick
-
-//         dataList.forEach(green=>{
-//             // general (both; normal and to green)
-
-
-//             // by; team and names
-//             let theteam = accountsList.filter(account=>'@'+ account.userName == green.managedBy )
-//             green.names = green.names.map(name=>name.trim())
-//             // console.log(green.names)
-//             let names= green.names.map(ee=>{
-//                 // console.log(ee, accountsList)
-//                 // ee.trim(), '@'+ account.userName === ee.trim()))
-                
-//                 let filtered = accountsList.filter(account=>('@'+ account.userName) == ee)
-//                 // console.log(filtered)
-//                 if(filtered[0]){
-//                     // console.log(filtered[0])
-//                     return `
-//                     <a href='http://${window.location.host+'/profile/'+ filtered[0].userName}'>
-//                 <span class="account contr">
-//                     <h4 class="userName">${ee}</h4>
-//                     ${filtered?`<img class="accountImg" style="background-image: url('${filtered[0].img}');"></img>`:null}
-//                 </span>
-//                 </a>
-//                 `
-                    
-//                 }else{
-//                     return `<h4 class="contrName">${ee}</h4>`
-//                 }
-//         }).join('').toString()
-
-
-//         let by = `
-//         <b>المساهمين ❤</b>
-
-//         <div class=''> ${theteam[0]? `<div class="account contr teamContr">
-//             <h3 class="userName"> ${theteam[0].userName} </h3>
-//         <img class="accountImg" style="background-image:url('${theteam[0].img}');">
-//         </div> <br>`:''}${names}</div>`
-//         let logImgs
-
-//         // console.log(green.log)
-//         if(green.log[0]){
-//             logImgs = green.log.map(logImg=>{
-//                 return `                    
-//                 <span class="loggedCamp">
-//                     <p>${logImg.date}</p>
-//                     <img src="${logImg.img}" alt="">
-//                 </span>`
-//             }).join('').toString()
-//             // console.log(logImgs)
-//             // logImgs.replaceAll(',', '')
-//         }
-
-//             let pin = L.marker(green.coords, {
-//                 icon: greenPin,
-//                 popupAnchor: [-10, -30]
-//             }).bindPopup(`<div>${by}</div>`).addTo(map)
-//             // make the dom elements;
-//             let beforeImgsElements = green.beforeImgs.map(img=>{
-//                 return `<img style='background-image:url("${img}")'>`
-//             }).join('').toString()
-//             let afterImgsElements = green.afterImgs.map(img=>{
-//                 return `<img style='background-image:url("${img}")'>`
-//             }).join('').toString()
-
-//             pin.id = green.id
-//             pin.beforeImgs = beforeImgsElements
-//             pin.afterImgs = afterImgsElements
-//             pin.details = green.details
-//             pin.date = green.date
-//             logImgs?pin.logImgs = logImgs:null
-
-//             if(theteam[0]){
-//                 pin.setIcon(L.icon({
-//                     iconUrl: `./imgs/${green.managedBy.slice(1)}greenpin.png`,
-//                     shadowSize: [50, 64], // size of the shadow
-//                     shadowAnchor: [4, 62], // the same for the shadow
-//                     iconSize: [25, 41],
-//                     iconAnchor: [12, 41],
-//                     popupAnchor: [0, -30] 
-//                 }))
-//             }
-
-
-//             pin.addEventListener('click', (ev)=>{
-//                 // console.log(ev.target)
-
-//                 document.querySelector('#beforeandafter').innerHTML = `
-//                 <div id="beforeImgs">
-//                     ${ev.target.beforeImgs}
-//                 </div>
-//                 <div id="afterImgs">
-//                     ${ev.target.afterImgs}
-//                 </div>
-//             `
-    
-    
-
-//                 // document.querySelector('#beforeImgs').innerHTML = ev.target.beforeImgs
-//                 // document.querySelector('#afterImgs').innerHTML = ev.target.afterImgs
-        
-//                 document.querySelector('#details').textContent = ev.target.details
-//                 document.querySelector('#date').textContent = ev.target.date
-
-//                 document.querySelector('#loggedContent').innerHTML = ev.target.logImgs
-
-//                 document.querySelector('#sendLog').removeAttribute("disabled")
-//                 prevMarker?map.removeLayer(prevMarker):null
-//                 prevMarker = L.circle(ev.target._latlng, {radius: 800 ,color: 'green'}).addTo(map)
-
-//                 currentId = ev.target.id
-//             })
-
-
-
-//             if(green.redToGreen){
-//                 // check the team; 
-//                 // change icon 
-//             }
-
-//         })
-//     }
-//     //new method; check if red or green then sub check if next or premade 
-// }
 
 function insertPins (generalPin){
     console.log(generalPin)
@@ -1143,10 +742,10 @@ function insertPins (generalPin){
 
                 // change icon 
                 pin.setIcon(L.icon({
-                    iconUrl: `./imgs/${generalPin.next.by}yellowpin.png`,
+                    iconUrl: `./imgs/${generalPin.next.by}-next-icon.png`,
                     shadowSize: [50, 64], // size of the shadow
                     shadowAnchor: [4, 62], // the same for the shadow
-                    iconSize: [25, 41],
+                    iconSize: [30, 30],
                     iconAnchor: [12, 41],
                     popupAnchor: [0, -30] 
                 }))
@@ -1358,7 +957,7 @@ function insertPins (generalPin){
                     iconUrl: `./imgs/${generalPin.managedBy.slice(1)}greenpin.png`,
                     shadowSize: [50, 64], // size of the shadow
                     shadowAnchor: [4, 62], // the same for the shadow
-                    iconSize: [25, 41],
+                    iconSize: [30, 30],
                     iconAnchor: [12, 41],
                     popupAnchor: [0, -30] 
                 }))
@@ -1585,7 +1184,7 @@ await onAuthStateChanged(bygreenAuth, async (user)=>{
             ranking('total', 'de')
         }
 
-        }).catch(err=>console.log(JSON.parse(localStorage.getItem("users") || "[]")))
+        })
 
 
 })

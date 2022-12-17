@@ -13,6 +13,14 @@ header{
   align-items: center;
   padding: 0 2rem;
 }
+.logos{
+  display: flex;
+  /* padding: 1rem; */
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
 .logo div {
   height: 30%;
   width: 75%;
@@ -24,7 +32,7 @@ header{
       width: 2rem;
   }
 
-#footer-di{
+#side-di{
     z-index: 1003;
     color: white;
 }
@@ -386,8 +394,8 @@ border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: .2rem;
 }
 
-/* footer */
-footer {
+/* */
+aside {
   height: 100vh;
   width: 100vw;
   /* background: rgba(0, 0, 0, 0.8); */
@@ -404,7 +412,7 @@ footer {
   z-index: 1002;
   display: none;
 }
-footer *{
+aside *{
   box-sizing: border-box;
 }
 .footerflex{
@@ -494,10 +502,8 @@ footer *{
 
 /* footer; info */
 
-.info{
+footer{
   min-height: 20vh;
-  /* padding: 0% 1rem; */
-  /* background: green; */
   background: #0a0a0a;
   display: flex;
   justify-content: space-between;
@@ -513,7 +519,6 @@ footer *{
   justify-content: space-around;
   flex-direction: column;
   align-items: center;
-  /* background: #29D659; */
   min-height: 15vh;
   width: 20vw;
   border-radius: .5rem;
@@ -522,9 +527,6 @@ footer *{
 }
 
 .contact:hover, .features:hover, .statics:hover{
-  /* background: #29D659; */
-  /* background: #33a353; */
-  /* background: white; */
   box-shadow: 3px 3px 0px 0px  #29D659;
 }
 .contact img, .features img, .statics img{
@@ -554,7 +556,6 @@ body{
   overflow-x: hidden;
   background: #1F2721;
   margin: 0;
-  /* overflow: hidden; */
 }
 body *{
   /* box-sizing: border-box; */
@@ -591,6 +592,9 @@ label:hover{
   background: #33a353;
 }
 
+input{
+  font-size: 1.5rem;
+}
 
 /* shared */
 .logged, .makeprofile, .notlogged{
@@ -619,18 +623,11 @@ label:hover{
   gap: .6rem;
   justify-content: center;
   align-items: center;
-  /* padding: 0; */
   transition: .1s linear;
   cursor: pointer;
-  /* overflow: hidden; */
-  /* color: black; */
 }
 
 .accountImg{
-  /* height: 3rem; */
-  /* height: 2rem;
-  width: 2rem; */
-  /* width: 3rem; */
   border-radius: 50%;
   border: #0a0a0a 1px solid;
 }
@@ -638,14 +635,10 @@ label:hover{
 
 
 .on{
-  /* background-color: rgb(223, 39, 39); */
-  /* border: 2px #ff2a2a solid; */
-  /* border: 2px #202020 solid; */
   background: #1b1b1b;
   color: white;
 }
 .on:hover{
-  /* background-color: rgb(158, 30, 30); */
   background: #333333;
 }
 
