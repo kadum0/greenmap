@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>bygreen fb-ex</title>
+  <title>greenmap</title>
 
   <!-- leaflet cdn -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -19,123 +19,138 @@
   <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
   <link rel="stylesheet" href="index.css">
-
-  <link rel="shortcut icon" type="image/jpg" href="imgs/bygreen-logo.png" />
-
-
+  <link rel="shortcut icon" type="image/jpg" href="imgs/greenmap-logo.png" />
   <link rel="manifest" href="./manifest.json">
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./newsw.js');
-      });
-    }
-  </script>
+
+
+  <!-- font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prosto+One&family=Changa:wght@300&display=swap" rel="stylesheet">
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Prosto+One&family=Changa:wght@300&display=swap');
+  </style>
+
+
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Prosto+One&family=Changa:wght@300&display=swap');
+  </style>
+
 </head>
 
 <body>
-
-
   <header>
     <!-- logo -->
-    <!-- logo -->
-    <div class="logos">
-      <div class="flex">
-        <a href="https://kadum2.github.io/ivc/">
-          <div class="logo box">
-            <!-- <a href="https://kadum2.github.io/ivc-2de/"> -->
-            <div class="black"></div>
-            <div class="red"></div>
-            <div class="white"></div>
-            <!-- <div class="green"></div> -->
-          </div>
-        </a>
-      </div>
+    <div class="links">
 
-
-      <a href="https://kadum2.github.io/bygreen/home/" class="projectLogo">
-        <img src="./imgs/bygreen-logo.png" alt="">
+      <a href="https://kadum2.github.io/greenmap/home" class="box projectLink">
+        <img src="./imgs/greenmap-logo.png" alt="">
       </a>
-      <button id="aside-di" class="box">
-        ?
-      </button>
-      <button id="displayShops" class="box">
-        المشاتل
+
+      <button id="asideDi" class="box">
+        <img src="./imgs/general/q-icon.png" alt="">
       </button>
 
+      <!-- <button class="box" id="translateToEn">en</button> -->
+
+      <img src="./imgs/general/arrow-right.png" id="redArrow">
+
+      <button id="displayShops" class="box">
+        <div class="ar">المشاتل</div>
+        <div class="en">shops</div>
+      </button>
     </div>
 
     <!-- title -->
-    <h2 id="projectName" class="box"> bygreen | تشجير</h2>
+    <h2 id="projectName" class="box">
+      <div class="en">publicline</div>
+      <div class="ar">الخط العام</div>
+    </h2>
 
     <!-- auth; auth-di, auth-state -->
-    <div id="auth-di" class="auth box">
+    <div id="miniProfileDi" class="box">
       <div class="logged" style="height: fit-content;">
-        <div class="flex">
-          <img class="minicuserimg">
-          <p class="teamEle" style="line-height: none; padding:0;
-                color:white; font-size: .8rem;">team</p>
+        <div class="flex currentAccount">
+          <img id="currentAccountImgDi">
+          <p id="currentAccountUsernameDi">username</p>
+          <p class="team" style="line-height: none; padding:0;
+        color:white; font-size: .8rem;">team</p>
         </div>
       </div>
+
       <div class="notlogged">
-        make account
+        <div class="ar">انشأ حساب</div>
+        <div class="en">create account</div>
       </div>
-      <div class="makeprofile">
-        make profile
+      <div class="halfLogged">
+        <div class="ar">اكمل البيانات</div>
+        <div class="en">fill the rest info</div>
       </div>
     </div>
 
-    <div class="authstate">
+    <div id="miniProfile">
+
       <div class="logged">
-        <a class="flex box" id="profileLink" href="">
-          <img class="cuserimg">
-          <p class="cuserusername" style="line-height: 0;">username</p>
+        <div class="ar">حسابك</div>
+        <div class="en">your account</div>
+        <!-- <p>حسابك </p> -->
+        <!-- account link? -->
+        <a class="flex box currentAccount" id="currentAccountLink" href="">
+          <img id="currentAccountImgMini">
+          <p id="currentAccountUsernameMini" style="line-height: 0;">username</p>
         </a>
         <b>
-          <p class="cusername"></p>
+          <p id="currentAccountName"></p>
         </b>
-        <p class="cuserbio">bio</p>
-        <div class="cuserpoints" style="display: inline;">
-          <span class="redPin">
-            <img src="./imgs/red-icon-stroked.png" alt="">
-            <span></span>
-          </span>
-          <span class="greenPin">
-            <img src="./imgs/green-icon-stroked.png" alt="">
-            <span></span>
-          </span>
-          <span class="yellowPin">
-            <img src="./imgs/yellow-icon-stroked.png" alt="">
-            <span></span>
-          </span>
-        </div>
-        <button class="box" id="signoutbtn" style="display: inline;">logout</button>
+        <p id="currentAccountBio">bio</p>
+        <button class="box" id="signoutBtn" style="display: inline;">logout</button>
       </div>
-      <div class="notlogged">
-        <div id="register">
-          <input type="text" class="em" placeholder="em">
-          <input type="text" class="pw" placeholder="pw">
-          <button id="registerbtn" class="box">register</button>
-        </div>
-        <br>
-        <div id="signin">
-          <input type="text" class="em" placeholder="em" id="signinUsername">
-          <input type="text" class="pw" placeholder="pw" id="signinUsername">
-          <button id="signinbtn" class="box">signin</button>
-        </div>
-        <h3>or</h3>
-        <button id="bygoogle" class="box">register with google <img src="./imgs/general/google-logo.png" alt="">
-        </button>
-      </div>
-      <div class="makeprofile">
+      <div class="halfLogged">
+        <div class="ar">انت الان مسجل: يجب اكمال البيانات لانشاء
+          حساب</div>
+        <div class="en">your are now logged; you have to complete
+          inserting the rest info</div>
+        <!-- <p>انت الان مسجل: يجب اكمال البيانات لانشاء حساب </p> -->
         <input type="text" id="username" placeholder="username">
         <input type="text" id="name" placeholder="name">
         <input type="text" id="bio" placeholder="bio">
-        <input type="file" id="userimg">
-        <button id="makeprofilebtn">submit</button>
+        <label for="userImg" id="userImgUpload" class="box">upload image</label>
+        <input type="file" id="userImg">
+        <button id="makeProfileBtn" class="box">
+          <div class="ar">ارسال</div>
+          <div class="en">send</div>
+        </button>
 
-        <button id="signoutsebtn">logout</button>
+        <button id="halfLoggedSignoutBtn" class="box">logout</button>
 
+      </div>
+
+      <div class="notLogged">
+        <div class="ar">غير مسجل</div>
+        <div class="en">not registered</div>
+        <!-- <p>تسجيل الدخول: </p> -->
+        <div id="register">
+          <div class="ar">تسجيل لاول مرة</div>
+          <div class="en">register</div>
+
+          <input type="text" class="em" placeholder="em">
+          <input type="text" class="pw" placeholder="pw">
+          <button id="registerBtn" class="box">register</button>
+        </div>
+        <br>
+        <div id="signin">
+          <div class="ar">تسجيل الدخول</div>
+          <div class="en">sign in</div>
+
+          <input type="text" class="em" placeholder="em" id="signinUsername">
+          <input type="text" class="pw" placeholder="pw" id="signinUsername">
+          <button id="signinBtn" class="box">signin</button>
+        </div>
+        <h3>or</h3>
+        <button id="byGoogle" class="box">register with google <img src="./imgs/general/google-logo.png" alt="">
+        </button>
       </div>
 
     </div>
@@ -143,8 +158,8 @@
   </header>
 
   <main>
-    <!-- profile -->
-    <div id="profile">
+    <!-- pin profile -->
+    <div id="pinProfile">
       <div id="beforeandafter">
 
         <div id="afterImgs">
@@ -167,23 +182,17 @@
           <!-- <span class="loggedCamp">
                         <p>time</p>
                         <img src="./imgs/addgreen.png" alt="">
-                    </span>
-                    -->
+                </span>
+          -->
         </div>
       </div>
     </div>
 
-
     <!-- map -->
     <div id="map">
 
-      <button id="displaylines" disabled="true" class="box">النقل العام </button>
-      <a href="https://kadum2.github.io/publicline-fe/" target="_blank" id="suggestaddingline"><button class="box">اضافة
-          مسارات</button></a>
-
-
       <button id="controllersDi">
-        <img src="./imgs/leaf-logo-stroked.png" alt="" style="  pointer-events: none;"> +
+        <img src="./imgs/leaf-icon.png" alt="" style="  pointer-events: none;"> +
       </button>
       <!-- controllers -->
       <div id="displayControllers">
@@ -191,33 +200,35 @@
         <button class="teamEle box" id="addToLog">add to log</button>
 
         <button class="addBtn teamEle box" data-contr="addYellowForm">
-
-
-          <img src="./imgs/yellow-icon-stroked.png" alt="">
+          <img src="./imgs/yellow-pin-icon.png" alt="">
           <img src="./imgs/arrow-right.png" alt="">
-          <img src="./imgs/red-icon-stroked.png" alt="">
+          <img src="./imgs/red-pin-icon.png" alt="">
         </button>
 
         <button class="addBtn addRed box" data-contr="addRedForm">
 
-          <img src="./imgs/red-icon-stroked.png" alt="">
+          <img src="./imgs/red-pin-icon.png" alt="">
           +
         </button>
         <button class="addBtn makeGreen box" data-contr="toGreenForm">
-          <img src="./imgs/green-icon-stroked.png">
+          <img src="./imgs/green-pin-icon.png">
           <img src="./imgs/arrow-right.png">
 
-          <img src="./imgs/red-icon-stroked.png">
+          <img src="./imgs/red-pin-icon.png">
         </button>
 
         <button class="addBtn makeGreen box" data-contr="addGreenForm">
 
-          <img src="./imgs/green-icon-stroked.png" alt="">
+          <img src="./imgs/green-pin-icon.png" alt="">
           +
         </button>
 
-
       </div>
+
+      <button id="displaylines" disabled="true" class="box">النقل العام </button>
+      <a href="https://kadum2.github.io/publicline-fe/" target="_blank" id="suggestaddingline"><button class="box">اضافة
+          مسارات</button></a>
+
     </div>
 
     <!-- form -->
@@ -257,7 +268,7 @@
         <h4>شروط المكان الذي يحتاج تشجير: ... </h4>
 
         <button class="addCoords box" id="addRedCoords"
-          style="background-image: url('./imgs/red-icon-stroked.png');background-repeat: no-repeat">تحديد
+          style="background-image: url('./imgs/red-pin-icon.png');background-repeat: no-repeat">تحديد
           مكان</button>
         <label for="addBImgs"> x3 اضافة صور للمكان</label>
         <input type="file" id="addBImgs" name="addBImgs" class="addBImgs" multiple>
@@ -271,7 +282,7 @@
 
       <div class="subForm" id="addGreenForm">
         <h4>اضافة مكان تم زراعته </h4>
-        <button class="addCoords box" id="addGreenCoords" style="background-image: url('./imgs/green-icon-stroked.png');
+        <button class="addCoords box" id="addGreenCoords" style="background-image: url('./imgs/green-pin-icon.png');
                 background-repeat: no-repeat">تحديد مكان</button>
         <label for="addBBImgs">قبل</label>
         <input type="file" id="addBBImgs" name="addBBImgs" class="addBImgs" multiple>
@@ -338,204 +349,362 @@
       <span class="nextPinsCounter">
         0
       </span>
-      <img src="./imgs/yellow-icon-stroked.png">
+      <img src="./imgs/yellow-pin-icon.png">
     </div>
 
-    <div id="message">
-      <div id="sendingDataMessage" class="box">loading data</div>
-      <div id="errorMessage" class="box">some thing is wrong</div>
-    </div>
 
+    <button id="findMe" class="box"><img src="./imgs/general/aim-icon.png"></button>
+
+    <div id="messages">
+      <div id="greenMessage" class="box green">
+        <img src="./imgs/general/loading.gif" style="width: fit-content;">
+      </div>
+
+      <div id="redMessage" class="box red">error, no valid data, full the rest</div>
+    </div>
 
   </main>
 
-  <!-- change footer name into side then info into footer -->
+
   <aside>
-    <div class="footerflex">
-      <div class="leaderBoard">
-        <span style="margin-bottom: 1rem;">
+
+    <!-- temp -->
+    <div class="features" id="features" style="width: 80%;">
+      <div class="black logoPart"></div>
+
+      <!-- <img src="./imgs/f2-add-route.gif" style="height: 12rem; padding:1rem;"> -->
+
+      <h2>
+        <div class="ar">الهدف</div>
+        <div class="en">goal</div>
+      </h2>
+      <li>
+        <div class="ar"> موقع و تطبيق لعرض خريطة مسارات النقل العام في العراق و تمكين
+          المستخدم من اضافة المزيد من المسارات اليها ما سيزيد حجم الخارطة
+          , لتسهيل التنقل
+          بتكاليف قليلة
+        </div>
+        <div class="en">webstie and application that shows the public transportation
+          map of iraq, and allows anyone to add a new route so to increase the size of
+          the map, to facilitate mobility in a lower costs</div>
+      </li>
+
+      <br>
+      <h2>
+        <div class="ar">كيفية الاستخدام و المميزات</div>
+        <div class="en">how to use and features</div>
+      </h2>
+
+      <div>
+
+        <li>
+          <img src="./imgs/route-icon.png" alt="">
+          <div class="ar">مسار الكية او الكوستر من البداية للنهاية</div>
+          <div class="en">public transportation line from start to end</div>
+        </li>
+
+        <br>
+
+        <li>
+          <div class="ar">اظهار مسارات النقل العام: مكتملة و غير
+            مكتملة</div>
+          <div class="en">display public transportation routes;
+            completed and incompleted</div>
+          <img src="./imgs/f1-display-routes.jpg" alt="">
+          <img src="./imgs/f1-choose-display.png" alt="">
+        </li>
+        <li>
+          <div class="ar">اضافة مسار</div>
+          <div class="en">add route</div>
+          <img src="./imgs/f2-add-route-btn-p.png">
+          <!-- <img src="./imgs/f2-add-route-btn.png" alt=""> -->
+          <img src="./imgs/f2-add-route.png" alt="">
+        </li>
+        <li>
+          <div class="ar">التصويت على المسار, لزيادة دقتها</div>
+          <div class="en">vote for a route, to increase their accuracy</div>
+          <img src="./imgs/f3-route-click.png">
+          <img src="./imgs/f3-vote.png" alt="">
+        </li>
+        <li>
+          <div class="ar">تحديد مكان و الحصول على رابط الاشارة اليه</div>
+          <div class="en">select a location to get share link to it</div>
+          <!-- <img src="./imgs/general/red-pin-icon.png" alt=""> -->
+          <img src="./imgs/f4-share-loc-btn.png">
+          <img src="./imgs/f4-share-loc.png">
+
+        </li>
+
+      </div>
+
+
+      <!-- sindibad -->
+      <img src="./imgs/general/sindibad-goal.png" class="sindibadIcons">
+    </div>
+
+
+    <!-- leaderboard -->
+    <div style="height: 100%; width: 100%; margin: auto; position: relative;">
+      <img src="./imgs/sindibad-basic-icon.png" id="leaderBoardImg">
+
+      <div class="leaderBoard" style="height: 90%; width: 90%;">
+
+
+        <div class="rankingSections" style="margin-bottom: 1rem;">
           <p style="color: white; display: inline;">leaderBoard</p>
-          <!-- leaderBoard -->
+
           <button id="displayUsersRanking" class="">users</button>
           <button id="displayteamsRanking" class="">team</button>
-          <a href="#me">
-            <button class="box">me</button>
-          </a>
-        </span>
-        <div class="rankingHeader">
-          <!-- <span>none</span> -->
-          <button id="rankingSorting" class="box">ranking</button>
-          <button id="accountHeader">account</button>
-          <button class="box" id="redPinSorting" style="background-image: url('./imgs/red-icon-stroked.png');"></button>
-          <button class="box" id="greenPinSorting"
-            style="background-image: url('./imgs/green-icon-stroked.png');"></button>
-          <button class="box" id="redToGreenSorting">
-            <img src="./imgs/arrow-right.png" style="pointer-events: none;">
-            <img src="./imgs/green-icon-stroked.png" style="pointer-events: none;">
-          </button>
-          <button class="box" id="totalSorting">total points</button>
+          <button href="#me" class="box">me</button>
         </div>
 
+        <div class="rankingHeader">
+          <button id="rankingSorting" class="box">المركز</button>
+          <button id="accountHeader" class="box">الحساب</button>
+          <div class="points">
+            <button class="box" id="redPinSorting" style="background-image: url('./imgs/red-pin-icon.png');"></button>
+            <button class="box" id="greenPinSorting"
+              style="background-image: url('./imgs/green-pin-icon.png');"></button>
+            <button class="box" id="redToGreenSorting">
+              <img src="./imgs/red-pin-icon" alt="">
+              <img src="./imgs/arrow-right.png" alt="">
+              <img src="./imgs/green-pin-icon.png" alt="">
+            </button>
+
+            <button class="box" id="totalSorting">=</button>
+          </div>
+        </div>
+        <br>
         <div id="usersRanking">
 
           <!-- prototyped account -->
-
           <div class="rankedAccount">
-            <span class="ranking">${index+1}</span>
+            <div class="ranking points">${index+1}</div>
             <div class="account flex" style="justify-content: flex-start;">
               <img class="accountImg" style="background-image: url('${account.img}');">
               <h3 class="accountUsername ranked">${account.userName}</h3>
             </div>
 
-            <h3 class="red">${account.red.length}</h3>
-            <h3 class="green">${account.green.length}</h3>
-            <h3 class="makingGreen">not yet</h3>
-            <h3 class="total">${account.red.length+account.green.length}</h3>
+            <div class="publiclinePoints points">${points}</div>
+            <div class="bygreenPoints points">${points}</div>
+            <div class="total points">${account.red.length+account.green.length}</div>
           </div>
         </div>
 
         <div id="teamsRanking" style="display: none;">
           <!-- prototyped account -->
           <div class="rankedAccount">
-            <span class="ranking">${index+1}</span>
-            <div class="account">
+            <div class="ranking">${index+1}</div>
+            <div class="account flex" style="justify-content: flex-start;">
               <img class="accountImg" style="background-image: url('${account.img}');">
               <h3 class="accountUsername ranked">${account.userName}</h3>
             </div>
 
-            <h3 class="red">${account.red.length}</h3>
-            <h3 class="green">${account.green.length}</h3>
-            <h3 class="makingGreen">not yet</h3>
-            <h3 class="makingGreen">${account.red.length+account.green.length}</h3>
+            <div class="publiclinePoints">${points}</div>
+            <div class="bygreenPoints">${points}</div>
+            <div class="total">${account.red.length+account.green.length}</div>
           </div>
         </div>
 
       </div>
 
-      <div class="flex">
-        <!-- <div class="box" style="margin: 1rem;">
-          <p>التبرع</p>
-          <li>
-            زين كاش 07836641341
-          </li>
-          <li>
-            آسياسيل : 07709734133
-          </li>
-          <li>
-            *123*x*07709734133#
-          </li>
-          <li>
-            الف شُكر لكم جميعًا.
+    </div>
 
-          </li>
-        </div> -->
-        <div class="box" style="margin: 1rem;">
-          <p>ملاحظات اماكن الزراعة و كيفية زراعتها</p>
-          <p>
-            <li>مدرسة, مكان مظلل, مناطق سكنية</li>
-            <li>...</li>
-            <li>...</li>
-          </p>
-        </div>
+    <div id="shordDescription" class="box">
+      <h2 style="font-size: 2rem;">
+        <h2 class="ar" style="font-size: 2rem;">
+          وصف الموقع
+        </h2>
+        <h2 class="en" style="font-size: 2rem;">website description</h2>
+      </h2>
+
+      <div class="ar">
+        بسبب غياب النقل العام في العراق ظهرت حافلات رخيصة التكلفة على الناس
+        تسير بمسارات ثابتة
+        لكن لا يمكن الاعتماد على تلك الحافلات وحدها للوصول الى نقطة معينة و
+        التنقل
+        عموما بسبب عشوائيتها و عدم وجود خريطة توضح تلك المسارات في عموم البلد
+        مشروع الخط العام يصنع تلك الخريطة بمساهمة الافراد في اضافة تلك
+        الخارطة (مع اسمها) و التصويت على المسارات الموجود لزيادة دقة الخارطة
+        مستقبلا (حيث يحذف المسار او يبقى حسب التصويت)
+
+        ملاحظة: المسارات المضافة حديثا لا تضاف مباشرة الى الخارطة بل الى
+        صفحة (ادمن) ليقوم بالتاكد من صحتها (منطقيا) عندها ستضاف الى الخارطة
+        الرئيسية
+
+        يمكن لاي احد زيارة صفحة الادمن و مشاهدة المسارات الحديثة لكن لا يمكن
+        لاي احد (غير الادمن ) التعديل على المسارات فيها
+      </div>
+      <div class="en">
+        Because of the absence of public transportation in Iraq, cheap buses appeared on the people
+        It runs steady paths
+        But you cannot rely on those buses alone to get to a certain point
+        Mobility
+        Generally because of its randomness and the lack of a map showing those paths throughout the country
+        The Public Line Project makes that map with the contribution of individuals to add that
+        Map (with its name) and vote on the existing tracks to increase the accuracy of the map
+        In the future (where the track is deleted or remains according to the vote)
+
+        Note: The newly added tracks are not added directly to the map, but to
+        Page (admin) to make sure it is correct (logically) then it will be added to the map
+        Main
+
+        Anyone can visit the admin page and see the recent tracks, but it is not possible
+        No one (other than the admin) can modify the tracks in it
+      </div>
+    </div>
+
+
+    <div class="app box">
+      <h2>
+        <div class="ar">لتنزيل التطبيق</div>
+        <div class="en">to download the app</div>
+      </h2>
+      <img src="./imgs/app-1.png" style="height: 18rem;">
+      <img src="./imgs/app-2.png" style="height: 18rem;">
+    </div>
+
+    <div class="btns">
+      <a href="https://kadum2.github.io/git4t/docs/publicline-doc" class="projectDoc box">
+        <div class="ar">تفاصيل</div>
+        <div class="en">more details</div>
+      </a>
+      <a href="https://github.com/kadum2/publicline" class="projectFiles
+        box">
+        <div class="ar">الكود</div>
+        <div class="en">source code</div>
+      </a>
+
+      <button id="translateToEn" class="box">en</button>
+
+    </div>
+
+    <footer>
+
+      <a href="https://kadum2.github.io/git4t" class="logo box">
+        <div class="black"></div>
+        <div class="red"></div>
+        <div class="white"></div>
+      </a>
+
+      <div class="contact">
+        <span class="red logoPart"></span>
+        <h2>
+          <div class="ar">تواصل</div>
+          <div class="en">contact</div>
+        </h2>
+        <span>
+          <a href="https://www.instagram.com/kadum_0/" target="_blank">
+            <img src="./imgs/general/instagram-logo.png" alt="">
+          </a>
+          <a href="https://www.t.me/git4t_publicline" target="_blank">
+            <img src="./imgs/general/telegram-logo.png" alt="">
+          </a>
+          <a href="https://www.github.com/kadum2" target="_blank">
+            <img src="./imgs/general/github-logo.png" alt="">
+          </a>
+        </span>
+
+        <p style="line-height: 0;"> kadum.mo.jwad@gmail.com</p>
+        <p style="line-height: 0;">makeitgreen002@gmail.com</p>
+
+        <img src="./imgs/general/sindibad-contact.png" class="sindibadIcons">
       </div>
 
-      <footer class="info">
-        <div class="contact">
-          <span class="red"></span>
-          <h2>تواصل معنا</h2>
-          <span>
-            <a href="https://www.instagram.com/kadum_0/" target="_blank">
-              <img src="./imgs/general/instagram-logo.png" alt="">
-            </a>
-            <a href="t.me/kadum0" target="_blank">
-              <img src="./imgs/general/telegram-logo.png" alt="">
-            </a>
-          </span>
-          <!-- <p>facebook</p> -->
-          <p>email; makeitgreen002@gmail.com</p>
-          <p>email; kadum.jawad@gmail.com</p>
+      <div class="statics">
+        <div class="green logoPart"></div>
+        <h2>
+          <div class="ar">نتائج</div>
+          <div class="en">results</div>
+        </h2>
+        <div class="projectsInfo">
 
-          <a href="https://github.com/kadum2/bygreen">
-            <div class="box">source code</div>
-          </a>
-          <a href="https://kadum2.github.io/ivc/docs/bygreen-doc">
-            <div class="box">التفاصيل</div>
-          </a>
-
-        </div>
-        <div class="features">
-          <span class="black"></span>
-
-          <!-- short description -->
-          <h2>: الغرض و الاستخدام </h2>
-
-          <div class="box">
-            موقع و تطبيق لعرض خريطة فيها حملات التشجير المنتهية, المحتملة و
-            القادمة, بهدف جمع مساهمات التشجير (الفرق
-            التطوعية) و المتطوعين في منصة واحدة مخصصة لهذا النشاط, مع تسهيلات لحل بعض المشاكل التي قد تواجه الطرفين
+          <div class="projectStatics" style="display: none;">
+            <b>git4t <img src="./imgs/general/git4t-logo.png" alt=""></b>
+            <li>
+              <div class="ar"> المستخدمين</div>
+              <div class="en">users</div>
+              : <img src="./imgs/general/account-icon.png" alt=""> <b id="accountsCounter">0</b>
+            </li>
+            <li>
+              <div class="ar"> المساهمات</div>
+              <div class="en">contributions</div>
+              : <img src="./imgs/general/account-icon.png" alt=""> <b id="contriCounter">0</b>
+            </li>
           </div>
 
-          <!-- features -->
-          <h2>
-            ممزيات:
-          </h2>
-          <div class="box">
-            التبليغ عن اماكن تحتاج تشجير
-            <img src="./imgs/f0-add-pin-btn.png" alt="">
-            <img src="./imgs/f2-add-red-pin-btn.png" alt="">
-            <img src="./imgs/f2-1-add-red-pin-details.png" alt="">
-          </div>
-          <div class="box">
-            زراعة مباشرة و توثيق بالصور
-            <img src="./imgs/f0-add-pin-btn.png" alt="">
-            <img src="./imgs/f1-add-green-pin-btn.png" alt="">
-            <img src="./imgs/f1-1-add-green-details.png" alt="">
-          </div>
-          <div class="box">
-            <img src="./imgs/f3-red-to-green-btn.png">
-            زراعة مكان محدد: توثيق بالصور
+          <div class="projectStatics">
+            <b>publicline <img src="./imgs/publicline-logo-green-blue.png" alt=""></b>
+            <li>
+              <span class="ar">المسارات المضافة</span>
+              <span class="en">added routes</span>
+              <img src="./imgs/add-route-icon.png">
+              <b id='routesCounter'>0</b>
+            </li>
+            <li>
+              <span class="ar">تم التصويت</span>
+              <span class="en">voted</span>
+              : <img src="./imgs/f2-vote.png" alt=""> <b id="votesCounter">0</b>
+            </li>
+
           </div>
 
-          <div class="box">
-            تسهيل التنقل
-            <img src="./imgs/f4-display-publicline-route-btn.png" alt="">
+          <br>
+          <div class="projectStatics" style="display: none;">
+            <b>bygreen <img src="https://kadum2.github.io/git4t/imgs/bygreen/bygreen-logo.png" alt=""></b>
+            <li>
+              <div class="ar">تم زراعتها</div>
+              <div class="en">planted</div>
+              <img src="https://kadum2.github.io/git4t/imgs/bygreen/green-pin-icon-stroked.png" alt=""><b
+                id="greenCounter">0</b>
+            </li>
+            <li>
+              <div class="ar">تحتاج الى زراعة</div>
+              <div class="en">need planting</div>
+              <img src="https://kadum2.github.io/git4t/imgs/bygreen/red-icon-stroked.png">
+              <b id="redCounter">0</b>
+            </li>
+            <li>
+              <div class="ar">الحملات الحالية</div>
+              <div class="en">current campaigns</div>
+              : <img src="https://kadum2.github.io/git4t/imgs/bygreen/yellow-icon-stroked.png"> <b
+                id="yellowCounter">0</b>
+            </li>
+            <li>
+              <div class="ar"> النباتات المزروعة</div>
+              <div class="en">palnted plants</div>
+              : <img src="https://kadum2.github.io/git4t/imgs/bygreen/plant-icon.png" alt=""> <b
+                id="contriCounter">0</b>
+            </li>
+            <li>عدد المشاتل: <img src="https://kadum2.github.io/git4t/imgs/bygreen/shop-icon.png" alt="">
+              <b id="shopsCounter">0</b></li>
           </div>
-
-
-        </div>
-
-        <div class="statics">
-          <span class="green"></span>
-          <h2>نتائج المشروع</h2>
-          <li>تم زراعتها <img src="./imgs/green-icon-stroked.png" alt=""><b id="greenCounter" style="color: red;">0</b>
-          </li>
-          <li>تحتاج الى زراعة <img src="./imgs/red-icon-stroked.png"> <b id="redCounter" style="color:red;">0</b></li>
-          <li>الحملات الحالية: <img src="./imgs/yellow-icon-stroked.png"> <b class="nextPinsCounter" style="color:red;">
-              0 </b>
-          </li>
-          <li>النباتات المزروعة: <img src="./imgs/plant-icon.png"> <b id="plantedCounter" style="color:red;">0</b>
-          </li>
-
-
-          <li>عدد المستخدمين: <img src="./imgs/general/account-icon.png" alt=""> <b id="accountsCounter"
-              style="color: red;">0</b></li>
-          <li>عدد المساهمات: <b id="contriCounter" style="color: red;">0</b></li>
-          <!-- <img src="./imgs/284807325_340145658273227_1050030653915922194_n.jpg" alt=""> -->
+          <br>
 
         </div>
 
-      </footer>
-    </div>
-    </div>
+        <img src="./imgs/general/sindibad-results.png" class="sindibadIcons">
+      </div>
+
+      <a href="https://kadum2.github.io/injazat-3la-gd-el7al/">
+        <img src="./imgs/general/injazat-logo.png" style="height: 3rem;">
+      </a>
+
+    </footer>
 
   </aside>
 
-
   <script src="./index.js" type="module"></script>
 
+  <!-- service worker -->
+  <!-- <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js');
+      });
+    }
+  </script> -->
+
 </body>
-
-
-
 
 </html>

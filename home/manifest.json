@@ -1,6 +1,6 @@
 {
-  "name": "bygreen",
-  "short_name": "bygreen",
+  "name": "greenmap",
+  "short_name": "greenmap",
   "icons":[
     {
       "src": "icons/manifest-icon-192.maskable.png",
@@ -28,8 +28,8 @@
     }
   ],
 "theme_color": "#27F161", 
-"background_color": "#27F161", 
-"start_url": "/bygreen/home",
+"background_color": "#ffffff", 
+"start_url": "/greenmap/home",
   "display": "standalone",
   "orientation": "portrait"
 }

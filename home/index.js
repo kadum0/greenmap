@@ -35,37 +35,44 @@ const bygreenDb = getFirestore(bygreen)
 const bygreenAuth = getAuth(bygreen)
 const bygreenStorage = getStorage(bygreen)
 
-/////////auth 
-let errDiv = document.querySelector('#errorMessage')
+// let darkerGreenColor = '#27F060'
+let greenColor = "#68F690"
+let darkerGreenColor = '#21C24F'
+
+let blueColor = '#3388FF'
+let darkerBlueColor = '#075FDA'
 
 let dbUser ////firestore 
 let authUser ///auth 
-let type 
+// let type 
 let accountsList = []
-let redPins
 
+
+///////////////////getting-sending (auth)
 ///////register 
-document.querySelector('#registerbtn').addEventListener('click', (ev)=>{
+document.querySelector('#registerBtn').addEventListener('click', (ev)=>{
     // check if valid data
-    if(ev.target.parentElement.querySelector(".em").value.length > 0 &&ev.target.parentElement.querySelector(".em").value.length < 20 && ev.target.parentElement.querySelector(".pw").value.length > 6){
+
     // send 
+    if(ev.target.parentElement.querySelector(".em").value.length > 0 &&ev.target.parentElement.querySelector(".em").value.length < 20 && ev.target.parentElement.querySelector(".pw").value.length > 0){
+
+        console.log('make account')
+        document.querySelector('#greenMessage').style.display = 'block'
         createUserWithEmailAndPassword(bygreenAuth, ev.target.parentElement.querySelector(".em").value, ev.target.parentElement.querySelector(".pw").value).then(cred=>{
-            // console.log(cred)
-        }).catch(err=>{
-            // console.log(err.message)
-            errDiv.textContent = err.message
-            errDiv.style.display = 'block'
+            console.log(cred)
             setTimeout(() => {
-                errDiv.style.display = 'none'
+                document.querySelector('#greenMessage').style.display = 'none'
+            }, 2000);
+        }).catch(err=>{
+            console.log(err.message)
+            document.querySelector('#errors').textContent = err.message
+            document.querySelector('#errors').style.display = 'block'
+            setTimeout(() => {
+                document.querySelector('#errors').style.display = 'none'
             }, 10000);
         })
     }else{
-        console.log(ev.target.parentElement.querySelector(".em").value, ev.target.parentElement.querySelector(".pw").value)
-        errDiv.textContent = 'not valid em or pw'
-        errDiv.style.display = 'block'
-        setTimeout(() => {
-            errDiv.style.display = 'none'
-        }, 10000);
+
     }
     // empty 
     document.querySelector('#registerUsername').value = ''
@@ -73,23 +80,25 @@ document.querySelector('#registerbtn').addEventListener('click', (ev)=>{
 })
 
 //////signin
-signinbtn.addEventListener('click', (ev)=>{
+document.querySelector('#signinBtn').addEventListener('click', (ev)=>{
+    console.log('to sign in')
+    console.log(ev.target.parentElement)
+    // console.log('click signin', document.querySelector('#signinUsername').value.length)
+    // console.log(document.querySelector('#signinUsername').value.length >0)
+
     // send 
-    if(ev.target.parentElement.querySelector('.em').value.length > 0 && ev.target.parentElement.querySelector('.pw').value.length > 0){
-        signInWithEmailAndPassword(bygreenAuth, ev.target.parentElement.querySelector(".em").value ,ev.target.parentElement.querySelector(".pw").value).then().catch(err=>{
-            // console.log(err.message)
-            errDiv.textContent = err.message
-            errDiv.style.display = 'block'
+    if(document.querySelector('#signinUsername').value.length > 0 && document.querySelector('#signinPassword').value.length > 0){
+        document.querySelector('#greenMessage').style.display = 'block'
+        console.log('make account')
+        signInWithEmailAndPassword(bygreenAuth, ev.target.parentElement.querySelector(".em").value ,ev.target.parentElement.querySelector(".pw").value).then(()=>{
             setTimeout(() => {
-                errDiv.style.display = 'none'
-            }, 10000);
+                document.querySelector('#greenMessage').style.display = 'none'
+            }, 2000);
+    
+    
         })
     }else{
-        errDiv.textContent = 'insert data'
-        errDiv.style.display = 'block'
-        setTimeout(() => {
-            errDiv.style.display = 'none'
-        }, 10000);
+
     }
     // empty 
     ev.target.parentElement.querySelector(".em").value = ''
@@ -97,19 +106,20 @@ signinbtn.addEventListener('click', (ev)=>{
 })
 
 //////signout 
-signoutsebtn.addEventListener('click', ()=>{
-    signOut(bygreenAuth, (result)=>{console.log('signed out', result)})
+document.querySelector('#signoutBtn').addEventListener('click', ()=>{
+    signOut(bygreenAuth, (result)=>{console.log(result); location.reload();})
+})
+document.querySelector('#halfLoggedSignoutBtn').addEventListener('click', ()=>{
+    signOut(bygreenAuth, (result)=>{console.log(result); location.reload()})
 })
 
 // sign with google  
-const provider = new GoogleAuthProvider()
-bygoogle.addEventListener('click', ()=>{
-    signInWithPopup(bygreenAuth, provider).then((cred)=>console.log('signed with google', cred))
+document.querySelector('#byGoogle').addEventListener('click', ()=>{
+    signInWithPopup(bygreenAuth, provider).then((cred)=>console.log(cred))
 })
 
 //////make profile; 
-document.querySelector('#makeprofilebtn').addEventListener('click', async (ev)=>{
-    document.querySelector('#sendingDataMessage').style.display = 'block'
+document.querySelector('#makeProfileBtn').addEventListener('click', async (ev)=>{
     //////////set user in the users collection user current user uid 
     let q = query(collection(bygreenDb, 'users'), where('username', '==', ev.target.parentElement.querySelector('#username').value))
     let foundDoc = await getDocs(q)
@@ -117,17 +127,17 @@ document.querySelector('#makeprofilebtn').addEventListener('click', async (ev)=>
 
     foundDoc.forEach(e=>{
         found = doc.data()
-        // console.log(doc.id, doc.data())
+        console.log(doc.id, doc.data())
     })
-    // console.log(foundDoc, found)
+    console.log(foundDoc, found)
     if(!found){
-        // console.log('no taken')
+        console.log('no taken')
 
-        let fileRef = ref(bygreenStorage, '/userimgs/' + new Date().toISOString().replace(/:/g, '-') +document.querySelector("#userimg").files[0].name.replaceAll(" ","") )
+        let fileRef = ref(bygreenStorage, '/user-imgs/' + new Date().toISOString().replace(/:/g, '-') +document.querySelector("#userImg").files[0].name.replaceAll(" ","") )
 
-            uploadBytes(fileRef, document.querySelector("#userimg").files[0]).then(res=>{
+            uploadBytes(fileRef, document.querySelector("#userImg").files[0]).then(res=>{
                 getDownloadURL(res.ref).then(url=>{
-                    // console.log(url)
+                    console.log(url)
                     let imgUrl = url
 
         ///addDoc; add document to a collection; 
@@ -142,31 +152,19 @@ document.querySelector('#makeprofilebtn').addEventListener('click', async (ev)=>
             addedRoutes: [], 
             votes: [],
             type: 'user'
-        }).then(()=>{
-        
-            window.location.reload();
-        }) 
-        
+        }).then(()=>{window.location.reload();}) 
         })
     })
 
 
-
-        // setDoc(doc(publicLinedb, 'users', currentUser.uid), {name: ev.target.querySelector('username').value})
-    }else{
+    // setDoc(doc(bygreenDb, 'users', currentUser.uid), {name: ev.target.querySelector('username').value})
+    
+}else{
         //////////make messaga section to display errors 
-        // console.log('username already taken')
-        document.querySelector('#sendingDataMessage').style.display='none'
-        document.querySelector('#errorMessage').textContent = 'username is already taken'
-        document.querySelector('#errorMessage').style.display = 'block'
-        setTimeout(() => {
-            document.querySelector('#errorMessage').style.display = 'none'
-        }, 1000);
+        console.log('username already taken')
     }
 
 })
-
-
 
 ////////setting main objects
 ////setting the map 
@@ -186,28 +184,38 @@ let control = L.Control.geocoder().addTo(map);
         /// /getting icon; icon is special object not just an image; to remove
       //the function instead
         let greenPin = L.icon({
-            iconUrl: "./imgs/green-icon-stroked.png",
+            iconUrl: "./imgs/green-pin-icon.png",
             shadowSize: [50, 64], // size of the shadow
             shadowAnchor: [4, 62], // the same for the shadow
-            iconSize: [30, 30],
-            iconAnchor: [12, 41],
+            iconSize: [30, 40],
+            iconAnchor: [13, 40],
             popupAnchor: [0, -30] 
         });
         let redPin = L.icon({
-            iconUrl: "./imgs/red-icon-stroked.png",
+            iconUrl: "./imgs/red-pin-icon.png",
             shadowSize: [50, 64], // size of the shadow
             shadowAnchor: [4, 62], // the same for the shadow
-            iconSize: [30, 30],
-            iconAnchor: [12, 41],
+            iconSize: [30, 40],
+            iconAnchor: [13, 40],
+            // iconAnchor: [3, 30],
             popupAnchor: [0, -30] 
         });
         let shopIcon= L.icon({
             iconUrl: "./imgs/shop-icon.png",
             shadowSize: [50, 64], // size of the shadow
             shadowAnchor: [4, 62], // the same for the shadow
-            iconSize: [30, 30],
+            // iconSize: [30, 30],
             iconAnchor: [12, 41],
             popupAnchor: [0, -30] 
+        });
+        let sindibad = L.icon({
+            iconUrl: "./imgs/general/sindibad-basic-icon.png",
+            shadowSize: [50, 64], // size of the shadow
+            shadowAnchor: [4, 62], // the same for the shadow
+            iconSize: [70, 60],
+            iconAnchor: [26, 26],
+            popupAnchor: [0, 0] 
+
         });
 
 
@@ -223,33 +231,101 @@ let control = L.Control.geocoder().addTo(map);
         }
 
 
-    //////////ui-js
-        /////get into the user location 
-        let currentUserLocation
-        function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
-        } else {
-            // console.log('Geolocation is not supported by this browser')
-        }
-        }
-        function showPosition(position) {
-            // map.setView([position.coords.latitude, position.coords.longitude], 16)
-            map.flyTo({lat: position.coords.latitude,lng: position.coords.longitude}, 16)
-        }
-        getLocation()
+    //////////////////ui-js
+        // find me
 
-//////////onclick display; 
-////authstate
-document.querySelector(".auth").addEventListener("click", (e)=>{
-    e.target.classList.toggle('on')
-    if(e.target.classList.contains('on')){
-        document.querySelector(".authstate").style.display = 'block'
-    }else{
-        document.querySelector(".authstate").style.display = 'none'
-    }
-})
+let myLoc 
+let myPin
+let watchID
 
+        findMe.addEventListener('click', (ev)=>{
+            ev.target.classList.toggle('on')
+            if(ev.target.classList.contains('on')){
+                // add marker and circle
+        
+                console.log("find me ...", navigator.geolocation)
+                // internet based; 
+                // no need to check and cant check 
+        
+                // get into the locatoin
+                navigator.geolocation.getCurrentPosition(pos=>{
+                    map.flyTo([pos.coords.latitude, pos.coords.longitude], 12)
+                })
+            
+                watchID = navigator.geolocation.watchPosition((pos)=>{
+                    console.log('watching; ',pos.coords.latitude, pos.coords.longitude)
+                    
+                    myPin?map.removeLayer(myPin):null
+                    myLoc?map.removeLayer(myLoc):null
+            
+                    myPin = L.marker([pos.coords.latitude, pos.coords.longitude], {icon: sindibad}).addTo(map)
+                    myLoc = L.circle([pos.coords.latitude, pos.coords.longitude], {color: darkerBlueColor, radius: 100}).addTo(map)
+                    
+                    localStorage.setItem('clientLoc', [pos.coords.latitude, pos.coords.longitude])
+        
+                    // map.flyTo([pos.coords.latitude, pos.coords.longitude], 16)
+                    // setView([pos.coords.latitude, pos.coords.longitude])
+        
+                }, (err)=>{
+                    console.log("gps not enabled")
+                    document.querySelector('#redMessage').textContent = 'gps not enabled, enable it'
+                    document.querySelector('#redMessage').style.display = 'block'
+        
+                    setTimeout(() => {
+                        document.querySelector('#redMessage').style.display = 'none'
+                    }, 2000);
+                    // document.querySelector('#redMessage').textContent = 'enable gps'
+        
+                //     if(navigator.onLine){
+        
+                //         console.log('online')
+        
+                //         fetch('https://ipapi.co/json/')
+                //         .then(res=>res.json())
+                //         .then(data=>{
+                //             console.log('got online loc;', data)
+                //             map.flyTo([data.latitude, data.longitude], 12)
+                //             myPin = L.marker([data.latitude, data.longitude], {icon: sindibad}).addTo(map)
+                //             myLoc = L.circle([data.latitude, data.longitude], {color: darkerBlueColor, radius: 100}).addTo(map)
+        
+                //             localStorage.setItem('clientLoc', [data.latitude, data.longitude])
+                
+                //             console.log(myPin, myLoc)
+                //         })
+        
+                //         document.querySelector('#redMessage').textContent = 'enable gps for more accurate results'
+                //         document.querySelector('#redMessage').style.display = 'block'
+                //         setTimeout(() => {
+                //             document.querySelector('#redMessage').style.display = 'none'
+                //         }, 2000);
+        
+                // // no permisson case
+                //     }else{
+                //         document.querySelector('#redMessage').textContent = 'no gps and no internet connection'
+                //     document.querySelector('#redMessage').style.display = 'block'
+                //     setTimeout(() => {
+                //         document.querySelector('#redMessage').style.display = 'none'
+                        
+                //     }, 3000);
+            
+                // // give the previous saved location
+                // // if(myLat && myLon){
+                // //     console.log('geolocation is enabled')
+                // //     map.flyTo([myLat, myLon], 16)
+                // // }
+                //     }
+        
+            })
+        
+            }else{
+                // remove marker and circle, and stop watching 
+                navigator.geolocation.clearWatch(watchID);
+                map.removeLayer(myLoc)
+                map.removeLayer(myPin)
+            }
+        })
+
+    //////////onclick display; 
 
 ///////controllers 
 document.querySelector('#controllersDi').addEventListener('click', (ev)=>{
@@ -272,31 +348,23 @@ document.querySelectorAll(".addBtn").forEach(i=>{
     })
 })
 
+//////specific display 
 
-// footer display 
-document.querySelector('#aside-di').addEventListener('click', (ev)=>{
-            ev.target.classList.toggle('on')
-            ev.target.classList.contains('on')?document.querySelector("aside").style.display = 'block':document.querySelector("aside").style.display = 'none'
-})
-
-// window.addEventListener('click', (ev)=>console.log(ev.target))
-
-// specific display 
 document.addEventListener('click', (ev)=>{
     // console.log(ev.target)
 
     ///////////display profile when click on pin
     // !ev.target.classList.contains('displayLog')
     if (ev.target.classList.contains('leaflet-marker-icon') || ev.target.classList.contains('displayLog')){
-        document.querySelector("#profile").style.zIndex = "1100"
+        document.querySelector("#pinProfile").style.zIndex = "1100"
 
-        document.querySelector("#profile").style.display = 'block'
-        document.querySelector("#profile").style.pointerEvents = "all"
+        document.querySelector("#pinProfile").style.display = 'block'
+        document.querySelector("#pinProfile").style.pointerEvents = "all"
     }else{
-        document.querySelector("#profile").style.zIndex = "1"
+        document.querySelector("#pinProfile").style.zIndex = "1"
 
-        document.querySelector("#profile").style.display = 'none'
-        document.querySelector("#profile").style.pointerEvents = "none"
+        document.querySelector("#pinProfile").style.display = 'none'
+        document.querySelector("#pinProfile").style.pointerEvents = "none"
 
     }
 
@@ -336,18 +404,35 @@ document.querySelector('#displayLog').addEventListener('click', (ev)=>{
     }
 })
 
+document.querySelector('#asideDi').addEventListener('click', (ev)=>{
+    ev.target.classList.toggle('red')
+    ev.target.classList.contains('red')?document.querySelector('aside').style.display = 'flex':document.querySelector('aside').style.display = 'none'
+})
+
 /////translate 
+document.querySelector('#translateToEn').addEventListener('click', (ev)=>{
+    ev.target.classList.toggle('on')
+    if(ev.target.classList.contains('on')){
+        document.querySelectorAll('.en').forEach((enElement)=>enElement.style.display='block')
+        document.querySelectorAll('.ar').forEach((arELement)=>arELement.style.display='none')
+        ev.target.textContent = 'ar'
+    }else{
+        document.querySelectorAll('.en').forEach((enElement)=>enElement.style.display='none')
+        document.querySelectorAll('.ar').forEach((arELement)=>arELement.style.display='block')
+        ev.target.textContent = 'en'
+    }
+})
 
 
 
 
-///// prepare; ui-js-data
+///////////////////////ui-js-data
 
 /////////public line routes
     let routesObjects = []
     let hoveredRoute
-    let hoveredPoint1
-    let hoveredPoint2
+    let hoveredstart
+    let hoveredend
 document.querySelector("#displaylines").addEventListener("click", (e)=>{
     // console.log(e.target.classList)
 
@@ -365,9 +450,9 @@ document.querySelector("#displaylines").addEventListener("click", (e)=>{
 
         // e.target.parentElement.lastElementChild.remove()
         document.querySelector("#suggestaddingline").style.display = "none"
-
     }
 })
+
 function displayLines (pd){
 
     // make route object, link the doc data, addeventlistener (click and hover)
@@ -375,46 +460,47 @@ function displayLines (pd){
 
     // new method; 
     Object.values(pd).forEach(e=>{
-        let routeObject = L.polyline(e.path).bindPopup(e.name?e.name:'اسم المسار').addTo(map)
+        let routeObject = L.polyline(e.path, {color: darkerGreenColor}).bindPopup(e.name?e.name:'اسم المسار').addTo(map)
 
-        e.point1?hoveredPoint1= L.circle(e.path[0],{radius: 300}).addTo(map):null
-        e.point2?hoveredPoint2 = L.circle(e.path[e.path.length-1],{radius: 300}).addTo(map):null 
+        e.start?hoveredstart= L.circle(e.path[0],{radius: 300, color: darkerGreenColor}).addTo(map):null
+        e.end?hoveredend = L.circle(e.path[e.path.length-1],{radius: 300, color: darkerGreenColor}).addTo(map):null 
         
         routeObject.id = e.id
-        routeObject.point1 = e.point1
-        routeObject.point2 = e.point2
+        routeObject.start = e.start
+        routeObject.end = e.end
         routesObjects.push(routeObject)
-        hoveredPoint1?routesObjects.push(hoveredPoint1):null
-        hoveredPoint2?routesObjects.push(hoveredPoint2):null
+        hoveredstart?routesObjects.push(hoveredstart):null
+        hoveredend?routesObjects.push(hoveredend):null
     
 
         routeObject.addEventListener('mouseover',(route)=>{
 
             // new method
-            routesObjects.forEach(e=>{e.setStyle({color: "#3388FF", opacity: .6})})
+            routesObjects.forEach(e=>{e.setStyle({color: darkerGreenColor, opacity: .6})})
 
             hoveredRoute?map.removeLayer(hoveredRoute):null
-            hoveredPoint1?map.removeLayer(hoveredPoint1):null
-            hoveredPoint2?map.removeLayer(hoveredPoint2):null
+            hoveredstart?map.removeLayer(hoveredstart):null
+            hoveredend?map.removeLayer(hoveredend):null
 
 
             // required????
-            hoveredRoute = L.polyline(route.target._latlngs, {color:"#28a84c", opacity: 1,interactive: false}).addTo(map)
-            route.target.point1?hoveredPoint1 = L.circle(route.target._latlngs[0],{radius:300 ,color:"#28a84c", opacity: 1,interactive: false}).addTo(map):null
+            hoveredRoute = L.polyline(route.target._latlngs, {color:blueColor, opacity: 1,interactive: false}).addTo(map)
+            route.target.start?hoveredstart = L.circle(route.target._latlngs[0],{radius:300 ,color:blueColor, opacity: 1,interactive: false}).addTo(map):null
 
-            route.target.point2?hoveredPoint2 = L.circle(route.target._latlngs[route.target._latlngs.length-1], {radius:300, color:"#28a84c", opacity: 1,interactive: false}).addTo(map):null
-
+            route.target.end?hoveredend = L.circle(route.target._latlngs[route.target._latlngs.length-1], {radius:300, color:blueColor, opacity: 1,interactive: false}).addTo(map):null
         })
     })
 }
+
 function hideLines(pd){
     pd.forEach(e=>{
         map.removeLayer(e)
     })
     hoveredRoute?map.removeLayer(hoveredRoute):null
-    hoveredPoint1?map.removeLayer(hoveredPoint1):null
-    hoveredPoint2?map.removeLayer(hoveredPoint2):null
+    hoveredstart?map.removeLayer(hoveredstart):null
+    hoveredend?map.removeLayer(hoveredend):null
 }
+
 
 let basicRes
 ///////account searching 
@@ -572,6 +658,28 @@ function ranking(based, order){
     document.querySelector('#usersRanking').innerHTML = orderedUserElements.replaceAll(',', '')
     document.querySelector('#teamsRanking').innerHTML = orderedteamElements.replaceAll(',', '')
 }
+
+//leaflet basic map
+map.on('zoomend', function () {
+    // let currentZoom = map.getZoom();
+    console.log('current zoom;',map.getZoom()  , map.getBounds())
+    routesObjects.forEach(route=>{
+    if(map.getZoom() == 10){
+        route.setStyle({weight: 5})
+    }else if(map.getZoom() == 11){
+        route.setStyle({weight: 10})
+    }else if(map.getZoom() == 12){
+        route.setStyle({weight: 15})
+    }else if(map.getZoom() == 13){
+        route.setStyle({weight: 20})
+    }else if(map.getZoom() == 14){
+        route.setStyle({weight: 25})
+    }
+    })
+});
+
+
+
 
 //////shops 
 document.querySelector('#displayShops').addEventListener('click', (ev)=>{
@@ -742,7 +850,7 @@ function insertPins (generalPin){
 
                 // change icon 
                 pin.setIcon(L.icon({
-                    iconUrl: `./imgs/${generalPin.next.by}-next-icon.png`,
+                    iconUrl: `./imgs/teams-icons/${generalPin.next.by}-next-icon.png`,
                     shadowSize: [50, 64], // size of the shadow
                     shadowAnchor: [4, 62], // the same for the shadow
                     iconSize: [30, 30],
@@ -1003,8 +1111,10 @@ function insertPins (generalPin){
 
 
 
-///////get data 
+////////////////////////////////get data 
 // containers 
+let redPins
+
 let currentPin
 let currentId
 let routes
@@ -1012,9 +1122,6 @@ let greenPins
 let pins = []
 let shops 
 
-window.onload = async ()=>{
-
-    // may change onload to be here
 await onAuthStateChanged(bygreenAuth, async (user)=>{
     // console.log('authstatefun', dbUser)
     if(user){
@@ -1175,7 +1282,7 @@ await onAuthStateChanged(bygreenAuth, async (user)=>{
             // greenPins.forEach(greenPin =>contriCounter += greenPin.names.length)
             // document.querySelector('#contriCounter').textContent = contriCounter
 
-            document.querySelector('#sendingDataMessage').style.display = 'none'
+            document.querySelector('#greenMessage').style.display = 'none'
         })
 
 
@@ -1185,14 +1292,6 @@ await onAuthStateChanged(bygreenAuth, async (user)=>{
         }
 
         })
-
-
-})
-
-
-
-
-
     getDocs(collection(bygreenDb, 'routes')).then((data)=>{
         let docs = []
             data.docs.forEach(doc=>{
@@ -1233,12 +1332,13 @@ await onAuthStateChanged(bygreenAuth, async (user)=>{
                 // insertPins(greenPins, 'green')
                 // document.querySelector('#greenCounter').textContent = greenPins.length
 
-                document.querySelector('#sendingDataMessage').style.display = 'none'
+                document.querySelector('#greenMessage').style.display = 'none'
                 document.querySelector('#displayShops').removeAttribute('disabled')
     })
-}
 
 
+
+})
 
 /////////sending; 
 /////prepare; collecting data; complex data recieving
@@ -1281,7 +1381,7 @@ document.querySelector('#addToLog').addEventListener('click', (ev)=>{
 })
 
 
-/////send data
+////////////////////////////////////send data
 // send log
 document.querySelector('#sendLog').addEventListener("click", ()=>{
     // restructure
