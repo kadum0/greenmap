@@ -14,12 +14,6 @@ import { getFirestore, onSnapshot,
 
 import {getStorage, ref, uploadBytes, getDownloadURL, listAll, list, deleteObject } from 'https://www.gstatic.com/firebasejs/9.9.2/firebase-storage.js'
 
-if(navigator.onLine){
-    // alert('online');
-} else {
-    console.log(JSON.parse(localStorage.getItem("users") || "[]"))   
-}
-
 const bygreenConfig = {
     apiKey: "AIzaSyDqK1z4fd7lO9g2ISbf-NNROMd7xpxcahc",
     authDomain: "bygreen-453c9.firebaseapp.com",
@@ -177,7 +171,7 @@ tileSize: 512,
 zoomOffset: -1,
 accessToken: apiKey,
 }).addTo(map);
-let control = L.Control.geocoder().addTo(map);
+L.Control.geocoder().addTo(map);
 
 
         ////////the required labels
@@ -219,6 +213,7 @@ let control = L.Control.geocoder().addTo(map);
         });
 
 
+        // delete ?
         function makePin(typeOfPin){
             return L.icon({
                 iconUrl: `./imgs/${typeOfPin}.png`,
@@ -232,13 +227,12 @@ let control = L.Control.geocoder().addTo(map);
 
 
     //////////////////ui-js
-        // find me
 
+    // find me
 let myLoc 
 let myPin
 let watchID
-
-        findMe.addEventListener('click', (ev)=>{
+    findMe.addEventListener('click', (ev)=>{
             ev.target.classList.toggle('on')
             if(ev.target.classList.contains('on')){
                 // add marker and circle
@@ -323,11 +317,10 @@ let watchID
                 map.removeLayer(myLoc)
                 map.removeLayer(myPin)
             }
-        })
+    })
 
-    //////////onclick display; 
-
-///////controllers 
+//////////onclick display; 
+//controllers 
 document.querySelector('#controllersDi').addEventListener('click', (ev)=>{
     ev.target.classList.toggle("on")
     if(ev.target.classList.contains('on')){
@@ -347,15 +340,23 @@ document.querySelectorAll(".addBtn").forEach(i=>{
         }
     })
 })
+document.querySelector("#miniProfileDi").addEventListener("click", (ev)=>{
+    ev.target.classList.toggle('on')
+    if(ev.target.classList.contains('on')){
+        document.querySelector("#miniProfile").style.display = 'block'
+    }else{
+        document.querySelector("#miniProfile").style.display = 'none'
+    }
+})
 
-//////specific display 
-
+// map
 document.addEventListener('click', (ev)=>{
     // console.log(ev.target)
+    console.log(ev.target)
 
     ///////////display profile when click on pin
     // !ev.target.classList.contains('displayLog')
-    if (ev.target.classList.contains('leaflet-marker-icon') || ev.target.classList.contains('displayLog')){
+    if (ev.target.classList.contains('leaflet-marker-icon') || ev.target.classList.contains('displayLog') || ev.target.children[0].classList.contains('campImg') || ev.target.classList.contains('campImg')){
         document.querySelector("#pinProfile").style.zIndex = "1100"
 
         document.querySelector("#pinProfile").style.display = 'block'
@@ -403,7 +404,6 @@ document.querySelector('#displayLog').addEventListener('click', (ev)=>{
         document.querySelector('#log').style.display = 'none'
     }
 })
-
 document.querySelector('#asideDi').addEventListener('click', (ev)=>{
     ev.target.classList.toggle('red')
     ev.target.classList.contains('red')?document.querySelector('aside').style.display = 'flex':document.querySelector('aside').style.display = 'none'
@@ -423,12 +423,8 @@ document.querySelector('#translateToEn').addEventListener('click', (ev)=>{
     }
 })
 
-
-
-
 ///////////////////////ui-js-data
-
-/////////public line routes
+//public line routes
     let routesObjects = []
     let hoveredRoute
     let hoveredstart
@@ -452,15 +448,12 @@ document.querySelector("#displaylines").addEventListener("click", (e)=>{
         document.querySelector("#suggestaddingline").style.display = "none"
     }
 })
-
 function displayLines (pd){
 
     // make route object, link the doc data, addeventlistener (click and hover)
-    // console.log("get routes; ", pd)
-
     // new method; 
     Object.values(pd).forEach(e=>{
-        let routeObject = L.polyline(e.path, {color: darkerGreenColor}).bindPopup(e.name?e.name:'اسم المسار').addTo(map)
+        let routeObject = L.polyline(e.path, {color: darkerGreenColor}).bindPopup(e.name?e.name:'لم يتم اضافة اسم').addTo(map)
 
         e.start?hoveredstart= L.circle(e.path[0],{radius: 300, color: darkerGreenColor}).addTo(map):null
         e.end?hoveredend = L.circle(e.path[e.path.length-1],{radius: 300, color: darkerGreenColor}).addTo(map):null 
@@ -476,7 +469,7 @@ function displayLines (pd){
         routeObject.addEventListener('mouseover',(route)=>{
 
             // new method
-            routesObjects.forEach(e=>{e.setStyle({color: darkerGreenColor, opacity: .6})})
+            routesObjects.forEach(e=>{e.setStyle({color: darkerGreenColor, opacity: .5})})
 
             hoveredRoute?map.removeLayer(hoveredRoute):null
             hoveredstart?map.removeLayer(hoveredstart):null
@@ -491,7 +484,6 @@ function displayLines (pd){
         })
     })
 }
-
 function hideLines(pd){
     pd.forEach(e=>{
         map.removeLayer(e)
@@ -501,9 +493,8 @@ function hideLines(pd){
     hoveredend?map.removeLayer(hoveredend):null
 }
 
-
+//account searching 
 let basicRes
-///////account searching 
 document.querySelectorAll('.names').forEach(search=>{
 
     search.addEventListener('keyup', ev=>{
@@ -551,7 +542,7 @@ document.querySelectorAll('.names').forEach(search=>{
     })
 })
 
-/////ranking 
+//ranking 
 totalSorting.addEventListener('click', (ev)=>{
     ev.target.classList.toggle('on')
     ev.target.classList.contains('on')?ranking('total', 'ac'):ranking('total', 'de')
@@ -659,7 +650,7 @@ function ranking(based, order){
     document.querySelector('#teamsRanking').innerHTML = orderedteamElements.replaceAll(',', '')
 }
 
-//leaflet basic map
+//leaflet zoom
 map.on('zoomend', function () {
     // let currentZoom = map.getZoom();
     console.log('current zoom;',map.getZoom()  , map.getBounds())
@@ -677,9 +668,6 @@ map.on('zoomend', function () {
     }
     })
 });
-
-
-
 
 //////shops 
 document.querySelector('#displayShops').addEventListener('click', (ev)=>{
@@ -714,15 +702,16 @@ function hideShops(){
     })
 }
 
+document.querySelector('#exitPreview').addEventListener('click', (ev)=>{
+    console.log(ev.target)
+    ev.target.parentElement.style.display = 'none'
+})
 
-////////getting data 
-/////////restructure data
+/////////////////////////////////getting data 
+////////////restructure data
 
 //////pins 
 let prevMarker 
-// function insertPins (dataList, type){
-
-
 function insertPins (generalPin){
     console.log(generalPin)
     //new method; check if red or green then sub check if next or premade 
@@ -780,11 +769,36 @@ function insertPins (generalPin){
 
     // new method
     let beforeImgsElements = []
+
     generalPin.beforeImgs.forEach(img=>{
+        let imgLink = document.createElement('div')
+        imgLink.style.height = '100%'
+        imgLink.style.width = '100%'
+        imgLink.style.backgroundImage = `url('${img}')`
+        imgLink.addEventListener('click',(ev)=>{
+            console.log(ev.target)
+            document.querySelector('#previewCampImgCont').style.display = 'block'
+            document.querySelector('#previewCampImg').setAttribute('src', img)
+
+        })
+
         let imgEle = document.createElement('img')
+        imgEle.classList.add('campImg')
+        imgEle.style.height = '100%'
+        imgEle.style.width = '100%'
         imgEle.style.backgroundImage = `url('${img}')`
-        beforeImgsElements.push(imgEle)
+        imgEle.addEventListener('load', (ev)=>console.log('img is; ', ev.target))
+        imgEle.addEventListener('click', (ev)=>{
+            console.log(ev.target)
+            // document.querySelector('#previewCampImgCont').style.display = 'block'
+            // document.querySelector('#previewImg').setAttribute('src', img)
+        })
+        // imgLink.append(imgEle)
+        document.querySelector('#beforeImgs').append(imgLink)
+        // beforeImgsElements.push(imgEle)
     })
+
+
 
 
     // old method
@@ -795,21 +809,39 @@ function insertPins (generalPin){
 
     pin.addEventListener('click', (ev)=>{
 
-
-
         // new method
-        document.querySelector('#beforeandafter').innerHTML = ``
-        let beforeImgsDiv = document.createElement('div')
-        beforeImgsDiv.setAttribute('id', 'beforeImgs')
+        // document.querySelector('#beforeandafter').innerHTML = ``
+        // let beforeImgsDiv = document.createElement('div')
+        // beforeImgsDiv.setAttribute('id', 'beforeImgs')
+        // beforeImgsDiv.addEventListener('click', (ev)=>console.log(ev.target))
         
+
+        // beforeImgsElements.forEach(imgElement=>{
+        //     console.log(imgElement)
+        //     // imgElement.addEventListener('click', (ev)=>{
+        //     //     console.log(ev.target)
+        //     //     document.querySelector('#previewCampImgCont').style.display = 'block'
+        //     //     document.querySelector('#previewImg').setAttribute('src', img)
+        //     // })
+        // // imgElement.addEventListener('load', ()=>{
+        // //     })
+        // })
+
 
         let afterImgsDiv = document.createElement('div')
         afterImgsDiv.setAttribute('id', 'afterImgs')
-        beforeImgsElements.forEach(imgDiv=>{
-            beforeImgsDiv.append(imgDiv)
-        })
-        document.querySelector('#beforeandafter').append(beforeImgsDiv, afterImgsDiv)
+        // beforeImgsElements.forEach(imgDiv=>{
+        //     beforeImgsDiv.append(imgDiv)
+        // })
+
         
+
+        // document.querySelector('#beforeandafter').append(beforeImgsDiv, afterImgsDiv)
+
+        // beforeImgsDiv.addEventListener('click', ev=>{
+        //     console.log(ev.target.tagName == 'IMG', ev.target)
+        // })
+
         // old method
         // document.querySelector('#beforeandafter').innerHTML = `
         //     <div id="afterImgs">
@@ -1111,10 +1143,10 @@ function insertPins (generalPin){
 
 
 
-////////////////////////////////get data 
+/////////////get data 
+
 // containers 
 let redPins
-
 let currentPin
 let currentId
 let routes
@@ -1340,7 +1372,7 @@ await onAuthStateChanged(bygreenAuth, async (user)=>{
 
 })
 
-/////////sending; 
+/////////////////////////////////////////////sending; 
 /////prepare; collecting data; complex data recieving
 
 document.querySelectorAll(".addCoords").forEach(e=>{
@@ -1381,7 +1413,7 @@ document.querySelector('#addToLog').addEventListener('click', (ev)=>{
 })
 
 
-////////////////////////////////////send data
+/////////////send data
 // send log
 document.querySelector('#sendLog').addEventListener("click", ()=>{
     // restructure

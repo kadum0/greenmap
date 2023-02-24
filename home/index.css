@@ -8,7 +8,7 @@ header{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 2rem;
+  padding: 0 .5rem;
   border-bottom: #27f060 2px solid;
   position: relative;
 }
@@ -141,6 +141,7 @@ header{
 
 main{
   position: relative;
+  overflow: hidden;
 }
 
 #pinProfile{
@@ -151,6 +152,8 @@ main{
   background: rgb(123, 255, 163);
   border-radius: .6rem;
   display: none;
+  /* pointer-events: none; */
+
 }
 #beforeandafter{
   /* justify-content: space-between; */
@@ -162,9 +165,11 @@ main{
   /* height: 100%; */
   display: flex;
   /* flex-direction: row; */
+  /* pointer-events: none; */
 }
 #beforeImgs, #afterImgs{
   /* display: flex; */
+  /* pointer-events: none; */
   gap: .3rem;
   /* background: rgb(150, 255, 181); */
   /* height: 90%; */
@@ -175,10 +180,13 @@ main{
   /* height: 90%; */
   width: 90%;
 }
-#beforeImgs img, #afterImgs img{
+#beforeImgs div , #afterImgs div {
   /* min-height: 100%; */
   min-height: 20vh;
   min-width: 33%;
+  z-index: 1033;
+  background-position: center;
+  background-size: cover;
 }
 #moreinfo{
   /* height: 2rem; */
@@ -234,19 +242,15 @@ main{
   position: absolute;
   z-index: 1002;
   bottom: .2rem;
-  left: 3vw;
+  left: 2rem;
   transform: translateX(-50%);
 }
 
 #suggestaddingline{
-  /* all: unset; */
-  /* color: #0a0a0a; */
-  /* background: #29D659; */
-  /* cursor: pointer; */
   display: none;
   position: absolute;
   bottom: .2rem;
-  left: 7vw;
+  left: 5rem;
   z-index: 1002;
 }
 
@@ -261,14 +265,9 @@ main{
   /* padding: .6rem; */
   border-radius: 5rem;
   font-size: 1.3rem;
-  /* padding: 1rem; */
-  /* height: 2rem; */
-  /* width: 2rem; */
   line-height: 0;
   cursor: pointer;
   background-color: #54db7b;
-  /* background-image: url('./imgs/leaflogo.png'); */
-  /* background: #a0f7b9; */
   transition: .1s linear;
   /* border: #29D659 2px solid ; */
 }
@@ -397,7 +396,7 @@ border: 1px solid rgba(255, 255, 255, 0.3);
   /* position: absolute; */
   position: fixed;
   top: 5rem;
-  right: 50vw;
+  right: 30vw;
   text-align: center;
   z-index: 1005;
 }
@@ -425,6 +424,45 @@ border: 1px solid rgba(255, 255, 255, 0.3);
   z-index: 1001;
   border-radius: 50%; 
   padding: .1rem;
+}
+
+#previewCampImgCont{
+  position: absolute;
+  background: rgba(34, 34, 34, 0.384);
+  /* background: red; */
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  right: 0;
+  z-index: 1010;
+  /* display: none; */
+}
+#previewCampImg{
+  /* background-image: url('./imgs/greenmap-logo.png'); */
+  position: absolute;
+  top: 50vh;
+  right: 50vw;
+  transform: translate(50%, -50%);
+  height: 90vh;
+  /* width: 90vw; */
+}
+#exitPreview{
+  position: absolute;
+  top: 1rem;
+  right: .5rem;
+  padding: 1rem;
+}
+#nextImgPreview{
+  position: absolute;
+  right: .5rem;
+  top: 50vh;
+  z-index: 1006;
+}
+#prevImgPreview{
+  position: absolute;
+  left: .5rem;
+  top: 50vh;
+  z-index: 1006;
 }
 
 
@@ -830,14 +868,21 @@ button{
       gap: .3rem;
   }
   .links a, .links button{
-      height: 2rem;
-      width: 2rem;
+      /* height: 2rem; */
+      /* width: 2rem; */
   }
   #miniProfile{
       margin: 2rem;
   }
   main{
       flex-direction: column;
+  }
+  #pinProfile{
+    width: 100%;
+  }
+  #beforeImgs image, #afterImgs image{
+    height: 5rem;
+    width: 5rem;
   }
   body *{
       font-size: .8rem;
@@ -864,7 +909,7 @@ button{
   .box, .bbox{
       padding: .2rem;
   }
-  
+
   #leaderBoardImg{
       /* top: 27rem; */
       /* right: 0rem; */
@@ -879,8 +924,13 @@ button{
   #redArrow{
   left: 3.5rem;
   }
+  #previewCampImg{
+    height: auto;
+    width: 90vw;
+  }
 }
 
+/* js created */
 
 
 

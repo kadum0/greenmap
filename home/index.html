@@ -19,7 +19,7 @@
   <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
   <link rel="stylesheet" href="index.css">
-  <link rel="shortcut icon" type="image/jpg" href="imgs/greenmap-logo.png" />
+  <link rel="shortcut icon" type="image/png" href="imgs/greenmap-logo.png" />
   <link rel="manifest" href="./manifest.json">
 
 
@@ -65,8 +65,8 @@
 
     <!-- title -->
     <h2 id="projectName" class="box">
-      <div class="en">publicline</div>
-      <div class="ar">الخط العام</div>
+      <div class="en">greenmap</div>
+      <div class="ar">التشجير</div>
     </h2>
 
     <!-- auth; auth-di, auth-state -->
@@ -163,10 +163,12 @@
       <div id="beforeandafter">
 
         <div id="afterImgs">
-          <h2>بعد</h2>
+          <!-- <h2>بعد</h2> -->
+          <!-- <img src="./imgs/bygreen-app.png" alt=""> -->
+
         </div>
         <div id="beforeImgs">
-          <h2>قبل</h2>
+          <!-- <h2>قبل</h2> -->
         </div>
 
       </div>
@@ -362,6 +364,16 @@
 
       <div id="redMessage" class="box red">error, no valid data, full the rest</div>
     </div>
+
+    <div id="previewCampImgCont">
+      <button id="exitPreview" class="box">x</button>
+
+      <button id="nextImgPreview" class="box"> next </button>
+      <button id="prevImgPreview" class="box"> prev </button>
+      <img src="./imgs/bygreen-app.png" id="previewCampImg">
+
+    </div>
+
 
   </main>
 
