@@ -11,6 +11,7 @@ header{
   padding: 0 .5rem;
   border-bottom: #27f060 2px solid;
   position: relative;
+  /* z-index: 1; */
 }
 .links{
   display: flex;
@@ -146,12 +147,13 @@ main{
 
 #pinProfile{
   position: absolute;
-  top: -2.5rem;
+  top: -3.5rem;
   max-height: auto;
   width: 84%;
   background: rgb(123, 255, 163);
   border-radius: .6rem;
   display: none;
+  z-index: 1100;
   /* pointer-events: none; */
 
 }
@@ -177,7 +179,7 @@ main{
   /* flex-direction: row; */
   overflow-x: scroll;
   display: flex;
-  /* height: 90%; */
+  /* height: 6rem; */
   width: 90%;
 }
 #beforeImgs div , #afterImgs div {
@@ -394,9 +396,14 @@ border: 1px solid rgba(255, 255, 255, 0.3);
 
 #messages{
   /* position: absolute; */
-  position: fixed;
-  top: 5rem;
-  right: 30vw;
+  /* position: fixed; */
+
+  position: absolute;
+  top: 10vh;
+  right: 50vw;
+  transform: translate(50%, 0);
+
+  /* right: 30vw; */
   text-align: center;
   z-index: 1005;
 }
@@ -435,7 +442,7 @@ border: 1px solid rgba(255, 255, 255, 0.3);
   top: 0;
   right: 0;
   z-index: 1010;
-  /* display: none; */
+  display: none;
 }
 #previewCampImg{
   /* background-image: url('./imgs/greenmap-logo.png'); */
@@ -451,6 +458,7 @@ border: 1px solid rgba(255, 255, 255, 0.3);
   top: 1rem;
   right: .5rem;
   padding: 1rem;
+  z-index: 1006;
 }
 #nextImgPreview{
   position: absolute;

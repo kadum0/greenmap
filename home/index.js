@@ -356,7 +356,7 @@ document.addEventListener('click', (ev)=>{
 
     ///////////display profile when click on pin
     // !ev.target.classList.contains('displayLog')
-    if (ev.target.classList.contains('leaflet-marker-icon') || ev.target.classList.contains('displayLog') || ev.target.children[0].classList.contains('campImg') || ev.target.classList.contains('campImg')){
+    if (ev.target.classList.contains('leaflet-marker-icon') || ev.target.classList.contains('displayLog') || ev.target.classList.contains('campImg')){
         document.querySelector("#pinProfile").style.zIndex = "1100"
 
         document.querySelector("#pinProfile").style.display = 'block'
@@ -667,7 +667,7 @@ map.on('zoomend', function () {
         route.setStyle({weight: 25})
     }
     })
-});
+})
 
 //////shops 
 document.querySelector('#displayShops').addEventListener('click', (ev)=>{
@@ -706,6 +706,17 @@ document.querySelector('#exitPreview').addEventListener('click', (ev)=>{
     console.log(ev.target)
     ev.target.parentElement.style.display = 'none'
 })
+
+document.querySelector('#nextImgPreview').addEventListener('click', (ev)=>{
+    document.querySelector('#beforeImgs').children.forEach(chil=>{
+        if(child.style.backgroundImage == `url('${document.querySelector('#previewCampImg').src}')`){
+            console.log(child)
+            // console.log(Array.prototype.indexOf.call(children, children[1]))
+        }
+    })
+})
+
+
 
 /////////////////////////////////getting data 
 ////////////restructure data
@@ -769,34 +780,37 @@ function insertPins (generalPin){
 
     // new method
     let beforeImgsElements = []
+    // generalPin.beforeImgsElements = []
 
     generalPin.beforeImgs.forEach(img=>{
         let imgLink = document.createElement('div')
         imgLink.style.height = '100%'
         imgLink.style.width = '100%'
+        imgLink.classList.add('campImg')
         imgLink.style.backgroundImage = `url('${img}')`
         imgLink.addEventListener('click',(ev)=>{
             console.log(ev.target)
             document.querySelector('#previewCampImgCont').style.display = 'block'
             document.querySelector('#previewCampImg').setAttribute('src', img)
-
         })
 
-        let imgEle = document.createElement('img')
-        imgEle.classList.add('campImg')
-        imgEle.style.height = '100%'
-        imgEle.style.width = '100%'
-        imgEle.style.backgroundImage = `url('${img}')`
-        imgEle.addEventListener('load', (ev)=>console.log('img is; ', ev.target))
-        imgEle.addEventListener('click', (ev)=>{
-            console.log(ev.target)
-            // document.querySelector('#previewCampImgCont').style.display = 'block'
-            // document.querySelector('#previewImg').setAttribute('src', img)
-        })
+        // let imgEle = document.createElement('img')
+        // imgEle.classList.add('campImg')
+        // imgEle.style.height = '100%'
+        // imgEle.style.width = '100%'
+        // imgEle.style.backgroundImage = `url('${img}')`
+        // imgEle.addEventListener('load', (ev)=>console.log('img is; ', ev.target))
+        // imgEle.addEventListener('click', (ev)=>{
+        //     console.log(ev.target)
+        //     // document.querySelector('#previewCampImgCont').style.display = 'block'
+        //     // document.querySelector('#previewImg').setAttribute('src', img)
+        // })
         // imgLink.append(imgEle)
-        document.querySelector('#beforeImgs').append(imgLink)
+        beforeImgsElements.push(imgLink)
+        // document.querySelector('#beforeImgs').append(imgLink)
         // beforeImgsElements.push(imgEle)
     })
+    pin.beforeImgs = beforeImgsElements
 
 
 
@@ -828,8 +842,8 @@ function insertPins (generalPin){
         // })
 
 
-        let afterImgsDiv = document.createElement('div')
-        afterImgsDiv.setAttribute('id', 'afterImgs')
+        // let afterImgsDiv = document.createElement('div')
+        // afterImgsDiv.setAttribute('id', 'afterImgs')
         // beforeImgsElements.forEach(imgDiv=>{
         //     beforeImgsDiv.append(imgDiv)
         // })
@@ -850,8 +864,15 @@ function insertPins (generalPin){
         //         ${ev.target.beforeImgs}
         //     </div>
         // `
-        // document.querySelector('#beforeImgs').innerHTML = ev.target.beforeImgs
-        // document.querySelector('#afterImgs').innerHTML = ''
+        document.querySelector('#beforeImgs').innerHTML = ''
+        ev.target.beforeImgs.forEach(element=>{
+            document.querySelector('#beforeImgs').append(element)
+        })
+
+        // beforeImgsElements.forEach(element=>{
+        //     document.querySelector('#beforeImgs').append(element)
+        // })
+        document.querySelector('#afterImgs').innerHTML = ''
 
         document.querySelector('#details').textContent = ''
         document.querySelector('#date').textContent = ''
@@ -865,11 +886,9 @@ function insertPins (generalPin){
 
         //method; set property object to pin object; selected, normal
 
-
         if(currentId){
             document.querySelector('#sendRedToGreen').removeAttribute('disabled')
             document.querySelector('#sendYellow').removeAttribute('disabled')
-            
         }else{
             document.querySelector('#sendRedToGreen').setAttribute('disabled', true)
             document.querySelector('#sendYellow').setAttribute('disabled', true)
@@ -1078,12 +1097,45 @@ function insertPins (generalPin){
                 popupAnchor: [-10, -30]
             }).bindPopup(`<div>${by}</div>`).addTo(map)
             // make the dom elements;
-            let beforeImgsElements = generalPin.beforeImgs.map(img=>{
-                return `<img style='background-image:url("${img}")'>`
-            }).join('').toString()
-            let afterImgsElements = generalPin.afterImgs.map(img=>{
-                return `<img style='background-image:url("${img}")'>`
-            }).join('').toString()
+
+            let beforeImgsElements = []
+
+            generalPin.beforeImgs.forEach(img=>{
+                let imgLink = document.createElement('div')
+                imgLink.style.height = '100%'
+                imgLink.style.width = '100%'
+                imgLink.classList.add('campImg')
+                imgLink.style.backgroundImage = `url('${img}')`
+                imgLink.addEventListener('click',(ev)=>{
+                    console.log(ev.target)
+                    document.querySelector('#previewCampImgCont').style.display = 'block'
+                    document.querySelector('#previewCampImg').setAttribute('src', img)
+                })
+                beforeImgsElements.push(imgLink)
+                // document.querySelector('#beforeImgs').append(imgLink)
+            })
+
+            let afterImgsElements = []
+            generalPin.afterImgs.forEach(img=>{
+                let imgLink = document.createElement('div')
+                imgLink.style.height = '100%'
+                imgLink.style.width = '100%'
+                imgLink.classList.add('campImg')
+                imgLink.style.backgroundImage = `url('${img}')`
+                imgLink.addEventListener('click',(ev)=>{
+                    console.log(ev.target)
+                    document.querySelector('#previewCampImgCont').style.display = 'block'
+                    document.querySelector('#previewCampImg').setAttribute('src', img)
+                })
+                afterImgsElements.push(imgLink)
+                // document.querySelector('#afterImgs').append(imgLink)
+            })
+        
+        
+
+            // let afterImgsElements = generalPin.afterImgs.map(img=>{
+            //     return `<img style='background-image:url("${img}")'>`
+            // }).join('').toString()
 
             pin.id = generalPin.id
             pin.beforeImgs = beforeImgsElements
@@ -1105,22 +1157,17 @@ function insertPins (generalPin){
 
 
             pin.addEventListener('click', (ev)=>{
-                // console.log(ev.target)
 
-                document.querySelector('#beforeandafter').innerHTML = `
-                <div id="beforeImgs">
-                    ${ev.target.beforeImgs}
-                </div>
-                <div id="afterImgs">
-                    ${ev.target.afterImgs}
-                </div>
-            `
-    
-    
+                document.querySelector('#beforeImgs').innerHTML = ''
+                ev.target.beforeImgs.forEach(element=>{
+                    document.querySelector('#beforeImgs').append(element)
+                })
 
-                // document.querySelector('#beforeImgs').innerHTML = ev.target.beforeImgs
-                // document.querySelector('#afterImgs').innerHTML = ev.target.afterImgs
-        
+                document.querySelector('#afterImgs').innerHTML = ''
+                ev.target.afterImgs.forEach(element=>{
+                    document.querySelector('#afterImgs').append(element)
+                })
+
                 document.querySelector('#details').textContent = ev.target.details
                 document.querySelector('#date').textContent = ev.target.date
 
@@ -1155,6 +1202,8 @@ let pins = []
 let shops 
 
 await onAuthStateChanged(bygreenAuth, async (user)=>{
+    document.querySelector("#greenMessage").style.display = 'block'
+
     // console.log('authstatefun', dbUser)
     if(user){
         // console.log('from auth ', user)
@@ -1323,6 +1372,17 @@ await onAuthStateChanged(bygreenAuth, async (user)=>{
             ranking('total', 'de')
         }
 
+        }).catch(err=>{
+            accountsList = JSON.parse(localStorage.getItem("users") || "[]")
+
+            console.log("grabage internet connection")
+            document.querySelector("#redMessage").textContent = 'garbage internet connection'
+            document.querySelector("#redMessage").style.display = 'block'
+            setTimeout(() => {
+                document.querySelector("#redMessage").style.display = 'none'
+                
+            }, 2000);
+    
         })
     getDocs(collection(bygreenDb, 'routes')).then((data)=>{
         let docs = []
@@ -1331,8 +1391,9 @@ await onAuthStateChanged(bygreenAuth, async (user)=>{
             })
             routes = docs
 
-                            // localstorage 
-                navigator.onLine?localStorage.setItem('routes', JSON.stringify(routes)):routes = JSON.parse(localStorage.getItem("routes") || "[]")
+            // localstorage 
+            navigator.onLine?localStorage.setItem('routes', JSON.stringify(routes)):routes = JSON.parse(localStorage.getItem("routes") || "[]")
+
 
             // console.log(routes)
         setTimeout(() => {
@@ -1344,7 +1405,19 @@ await onAuthStateChanged(bygreenAuth, async (user)=>{
             document.querySelector("#suggestaddingline").style.display = "block"
                 
         }, 1500);
+        }).catch(err=>{
+            routes = JSON.parse(localStorage.getItem("routes") || "[]")
+
+            console.log("grabage internet connection")
+            document.querySelector("#redMessage").textContent = 'garbage internet connection'
+            document.querySelector("#redMessage").style.display = 'block'
+            setTimeout(() => {
+                document.querySelector("#redMessage").style.display = 'none'
+                
+            }, 2000);
+    
         })
+
         document.querySelector("#displaylines").removeAttribute("disabled")
 
         // get shops; 
@@ -1354,9 +1427,9 @@ await onAuthStateChanged(bygreenAuth, async (user)=>{
                     docs.push({...doc.data(), id: doc.id})
                 })
                 shops = docs
-                console.log('shops', shops)
+                // console.log('shops', shops)
 
-                                // localstorage 
+                // localstorage 
                 navigator.onLine?localStorage.setItem('shops', JSON.stringify(shops)):shops = JSON.parse(localStorage.getItem("shops") || "[]")
 
                 // console.log(docs)
@@ -1366,10 +1439,18 @@ await onAuthStateChanged(bygreenAuth, async (user)=>{
 
                 document.querySelector('#greenMessage').style.display = 'none'
                 document.querySelector('#displayShops').removeAttribute('disabled')
+        }).catch(err=>{
+        shops = JSON.parse(localStorage.getItem("shops") || "[]")
+
+        console.log("grabage internet connection")
+        document.querySelector("#redMessage").textContent = 'garbage internet connection'
+        document.querySelector("#redMessage").style.display = 'block'
+        setTimeout(() => {
+            document.querySelector("#redMessage").style.display = 'none'
+            
+        }, 2000);
+
     })
-
-
-
 })
 
 /////////////////////////////////////////////sending; 
@@ -1757,7 +1838,6 @@ for (var i = 0; i < files.length; i++) {
         }
     }
 })
-
 
 // check 
 window.addEventListener('click', ()=>{
